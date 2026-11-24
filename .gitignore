@@ -19,6 +19,5 @@ __pycache__/
 # Local inputs and generated experiment artifacts (keep outside Git)
 /data/
 
-# Temporary duplicate prototype; canonical site lives in PIT/
-/website/
+# Temporary duplicate prototype was moved aside; canonical site lives in website/
 /solit-example-problem.png

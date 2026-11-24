@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#f6f7f2">
   <meta name="description" content="강의에서 배운 개념을 학생의 문제 풀이까지 연결하는 SoLiT 데모입니다.">
   <title>SoLiT 체험 | 강의에서 문제 풀이까지</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
   <style>
     :root {
       --ink:#172b26; --muted:#687872; --green:#245b49; --green-dark:#194336;
@@ -104,6 +106,10 @@
     .field{width:100%;border:1px solid #cbd6cc;border-radius:10px;padding:12px 13px;background:white;color:var(--ink)}
     .login-card .button{width:100%;margin-top:22px}
     .demo-login-note{margin-top:14px;padding:12px;border-radius:9px;background:#f3f6f1;color:var(--muted);font-size:11px;line-height:1.6}
+    .auth-register-only[hidden]{display:none!important}
+    .auth-status{min-height:24px;margin:12px 0 0;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+    .auth-status.error{color:#a13f36}.auth-status.success{color:var(--green)}
+    .auth-switch{width:100%;margin-top:12px;border:0;background:transparent;color:var(--green);font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:3px}
     .dashboard-top{padding:46px 0 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
     .dashboard-top h1{font-size:40px;letter-spacing:-2px;margin:8px 0}
     .dashboard-top p{color:var(--muted);margin:0}
@@ -195,43 +201,80 @@
     </section>
 
     <section class="page" id="teacher-login">
-      <div class="shell login-wrap"><form class="login-card" id="teacher-login-form"><button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR INSTRUCTORS</p><h1>강사 로그인</h1><p>강의와 문제풀이 영상을 관리하세요.</p><label class="field-label" for="teacher-email">이메일</label><input class="field" id="teacher-email" type="email" placeholder="teacher@example.com" required><label class="field-label" for="teacher-password">비밀번호</label><input class="field" id="teacher-password" type="password" placeholder="비밀번호" required><button class="button primary" type="submit">데모 화면으로</button><div class="demo-login-note">발표용 화면입니다. 입력 정보는 인증에 사용되거나 저장되지 않습니다.</div></form></div>
+      <div class="shell login-wrap">
+        <form class="login-card" id="teacher-login-form" data-role="teacher">
+          <button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR INSTRUCTORS</p>
+          <h1 id="teacher-auth-title">강사 로그인</h1><p id="teacher-auth-intro">등록된 강사 계정으로 로그인하세요.</p>
+          <div class="auth-register-only" id="teacher-name-wrap" hidden><label class="field-label" for="teacher-name">이름</label><input class="field" id="teacher-name" type="text" maxlength="80" autocomplete="name" placeholder="이름"></div>
+          <label class="field-label" for="teacher-email">이메일</label><input class="field" id="teacher-email" type="email" autocomplete="email" placeholder="teacher@example.com" required>
+          <label class="field-label" for="teacher-password">비밀번호</label><input class="field" id="teacher-password" type="password" autocomplete="current-password" minlength="8" placeholder="8자 이상" required>
+          <button class="button primary" id="teacher-auth-submit" type="submit">로그인</button>
+          <button class="auth-switch" id="teacher-auth-toggle" type="button" onclick="toggleAuthMode('teacher')">처음이신가요? 회원가입</button>
+          <p class="auth-status" id="teacher-auth-status" role="status" aria-live="polite"></p>
+          <p class="demo-login-note">회원가입 시 이메일 인증이 필요할 수 있습니다. 강사와 학생 계정은 역할별로 구분됩니다.</p>
+        </form>
+      </div>
     </section>
 
     <section class="page" id="teacher-dashboard">
       <div class="shell">
-        <div class="dashboard-top"><div><p class="eyebrow">INSTRUCTOR WORKSPACE</p><h1>강사 페이지</h1><p>강의 프로필과 풀이 영상을 관리합니다.</p></div><button class="button quiet" onclick="logoutTo('teacher-login')">로그아웃</button></div>
+        <div class="dashboard-top"><div><p class="eyebrow">INSTRUCTOR WORKSPACE</p><h1>강사 페이지</h1><p>강의 프로필은 준비되어 있고, 강사 전체 프로필은 다음 단계 기능입니다.</p></div><button class="button quiet" onclick="logoutTo('teacher-login')">로그아웃</button></div>
         <div class="dashboard-grid">
           <div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:16px">강의 영상</h3><p>강의 내용과 판서를 바탕으로 강의별 프로필을 만듭니다.</p><label class="upload-zone" for="teacher-lecture-file"><input id="teacher-lecture-file" type="file" accept="video/*"><span class="upload-icon">↑</span><strong>강의 영상 선택</strong><span>MP4, MOV 등</span></label><div class="file-state" id="teacher-lecture-state" aria-live="polite"></div></div>
-          <div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:16px">문제풀이 영상</h3><p>강사의 문제 접근과 설명 방식을 정리합니다.</p><label class="upload-zone" for="teacher-solution-file"><input id="teacher-solution-file" type="file" accept="video/*" multiple><span class="upload-icon">↑</span><strong>문제풀이 영상 선택</strong><span>여러 파일 선택 가능</span></label><div class="file-state" id="teacher-solution-state" aria-live="polite"></div></div>
+          <div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:16px">문제풀이 영상 분석</h3><p>여러 문제풀이 영상에서 강사의 공통된 풀이·설명 방식을 추출하는 기능입니다.</p><button class="button" onclick="go('teacher-profile-coming-soon')">서비스 준비 중</button></div>
         </div>
-        <div class="panel library"><div class="panel-title"><div><h3>내 자료</h3><p>업로드한 자료와 프로필 상태</p></div><span class="pill">샘플 데이터</span></div><div class="library-row"><span><strong>삼차함수의 비율관계</strong><small>강의 프로필 · 발표 데모</small></span><span class="pill"><i class="dot"></i>준비 완료</span></div><div class="library-row"><span><strong>숙제 문제</strong><small>현재 샘플 8문항</small></span><span class="pill">8문항</span></div><p class="notice">파일 선택과 미리보기만 구현된 화면입니다. 실제 계정 인증, 서버 업로드 및 새 프로필 생성은 아직 연결되지 않았습니다.</p></div>
+        <div class="panel library"><div class="panel-title"><div><h3>내 자료</h3><p>업로드한 자료와 프로필 상태</p></div><span class="pill">샘플 데이터</span></div><div class="library-row"><span><strong>삼차함수의 비율관계</strong><small>강의 프로필 · 발표 데모</small></span><span class="pill"><i class="dot"></i>준비 완료</span></div><div class="library-row"><span><strong>숙제 문제</strong><small>현재 샘플 8문항</small></span><span class="pill">8문항</span></div><p class="notice">강의 업로드와 프로필 생성은 다음 구현 단계입니다. 강사 전체 프로필은 서비스 준비 중입니다.</p></div>
       </div>
     </section>
 
     <section class="page" id="student-login">
-      <div class="shell login-wrap"><form class="login-card" id="student-login-form"><button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR STUDENTS</p><h1>학생 로그인</h1><p>수강 중인 강의에서 질문을 이어가세요.</p><label class="field-label" for="student-email">이메일</label><input class="field" id="student-email" type="email" placeholder="student@example.com" required><label class="field-label" for="student-password">비밀번호</label><input class="field" id="student-password" type="password" placeholder="비밀번호" required><button class="button primary" type="submit">데모 화면으로</button><div class="demo-login-note">발표용 화면입니다. 입력 정보는 인증에 사용되거나 저장되지 않습니다.</div></form></div>
+      <div class="shell login-wrap">
+        <form class="login-card" id="student-login-form" data-role="student">
+          <button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR STUDENTS</p>
+          <h1 id="student-auth-title">학생 로그인</h1><p id="student-auth-intro">등록된 학생 계정으로 로그인하세요.</p>
+          <div class="auth-register-only" id="student-name-wrap" hidden><label class="field-label" for="student-name">이름</label><input class="field" id="student-name" type="text" maxlength="80" autocomplete="name" placeholder="이름"></div>
+          <label class="field-label" for="student-email">이메일</label><input class="field" id="student-email" type="email" autocomplete="email" placeholder="student@example.com" required>
+          <label class="field-label" for="student-password">비밀번호</label><input class="field" id="student-password" type="password" autocomplete="current-password" minlength="8" placeholder="8자 이상" required>
+          <button class="button primary" id="student-auth-submit" type="submit">로그인</button>
+          <button class="auth-switch" id="student-auth-toggle" type="button" onclick="toggleAuthMode('student')">처음이신가요? 회원가입</button>
+          <p class="auth-status" id="student-auth-status" role="status" aria-live="polite"></p>
+          <p class="demo-login-note">회원가입 시 이메일 인증이 필요할 수 있습니다. 강사와 학생 계정은 역할별로 구분됩니다.</p>
+        </form>
+      </div>
     </section>
 
     <section class="page" id="student-dashboard">
       <div class="shell">
         <div class="dashboard-top"><div><p class="eyebrow">STUDENT WORKSPACE</p><h1>내 강의</h1><p>수강 중인 강의와 질문 경로를 확인하세요.</p></div><button class="button quiet" onclick="logoutTo('student-login')">로그아웃</button></div>
         <div class="panel student-course"><div><span class="pill"><i class="dot"></i>수강 중</span><h3 style="margin:13px 0 0">삼차함수의 비율관계</h3><p class="course-meta">담당 강사 · 강의 프로필 연결됨</p></div><button class="button primary" onclick="go('student-lecture')">강의 열기 →</button></div>
-        <div class="panel" style="margin:16px 0 76px"><div class="panel-title"><div><h3>질문 경로</h3><p>질문에 맞는 범위를 선택합니다.</p></div></div><div class="dashboard-grid" style="padding:0"><div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:15px">강의별 질문</h3><p>선택한 강의의 개념과 적용 조건을 바탕으로 답변합니다.</p><button class="button primary" onclick="go('student-lecture')">강의에서 질문하기</button></div><div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:15px">강사 전체 질문</h3><p>강사의 전반적인 문제 접근과 설명 방식을 활용합니다.</p><button class="button" disabled title="발표용 MVP에서는 미구현">준비 중</button><p class="notice">문제풀이 영상에서 강사 프로필을 만드는 다음 단계 기능입니다.</p></div></div></div>
+        <div class="panel" style="margin:16px 0 76px"><div class="panel-title"><div><h3>질문 경로</h3><p>질문에 맞는 범위를 선택합니다.</p></div></div><div class="dashboard-grid" style="padding:0"><div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:15px">강의별 질문</h3><p>선택한 강의의 개념과 적용 조건을 바탕으로 답변합니다.</p><button class="button primary" onclick="go('student-lecture')">강의에서 질문하기</button></div><div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:15px">강사 전체 질문</h3><p>강사의 전반적인 문제 접근과 설명 방식을 활용하는 기능입니다.</p><button class="button" onclick="go('teacher-profile-coming-soon')">서비스 준비 중</button></div></div></div>
       </div>
     </section>
 
     <section class="page" id="student-lecture">
       <div class="shell workspace">
         <div class="section-head"><div><p class="eyebrow">MY LECTURE</p><h2>삼차함수의 비율관계</h2><p>이 강의 프로필을 바탕으로 질문에 답합니다.</p></div><button class="button quiet" onclick="go('student-dashboard')">← 내 강의</button></div>
-        <div class="course-head"><div><span class="pill"><i class="dot"></i>강의별 질문</span></div><div class="mode-switch" role="group" aria-label="질문 범위"><button class="active" aria-pressed="true" onclick="setQuestionMode('lecture',this)">이 강의에서</button><button disabled title="준비 중">강사 전체에서</button></div></div>
-        <p class="mode-note">강의별 질문은 해당 수업에서 다룬 개념과 조건을 우선 참고합니다. 강사 전체 질문은 발표용 MVP에서 아직 제공하지 않습니다.</p>
+        <div class="course-head"><div><span class="pill"><i class="dot"></i>강의별 질문</span></div><div class="mode-switch" role="group" aria-label="질문 범위"><button class="active" aria-pressed="true" onclick="setQuestionMode('lecture',this)">이 강의에서</button><button onclick="setQuestionMode('teacher',this)">강사 전체에서</button></div></div>
+        <p class="mode-note">강의별 질문은 해당 수업의 개념과 조건을 참고합니다. 강사 전체 질문은 아직 준비 중입니다.</p>
         <div class="workspace-grid">
           <div>
             <div class="panel"><div class="panel-title"><div><h3>문제 선택</h3><p>질문할 샘플 문제를 선택하세요.</p></div><span class="pill">강의 연계 샘플</span></div><div class="problem-list"><button class="problem-choice" data-problem="002" onclick="selectProblem('002','student-chat')"><img class="problem-thumb" src="assets/homework-002.png" alt="문제 002 미리보기"><span><strong>접선과 곡선의 두 번째 교점</strong><small>교점 x좌표의 합 관계</small></span><i class="radio-mark" aria-hidden="true"></i></button><button class="problem-choice" data-problem="007" onclick="selectProblem('007','student-chat')"><img class="problem-thumb" src="assets/homework-007.png" alt="문제 007 미리보기"><span><strong>극댓값과 사각형의 넓이</strong><small>1:√3 비율 관계</small></span><i class="radio-mark" aria-hidden="true"></i></button></div></div>
             <div class="panel chat-panel" id="student-chat" aria-live="polite"><div class="chat-placeholder">문제를 선택하면 강의에 연결해 한 단계씩 설명합니다.</div></div>
           </div>
           <aside><div class="panel"><span class="eyebrow">ANSWER STYLE</span><h3 style="margin-top:12px">한 단계씩 진행</h3><p class="muted" style="font-size:13px;margin-bottom:0">이해한 단계는 넘어가고, 막힌 단계는 더 자세히 설명받을 수 있습니다.</p></div><div class="panel"><span class="eyebrow">SCOPE</span><h3 style="margin-top:12px">강의 내용 우선</h3><p class="muted" style="font-size:13px;margin-bottom:0">강의 개념이 문제에 실제로 적용될 때만 풀이에 연결합니다.</p></div></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="teacher-profile-coming-soon">
+      <div class="shell login-wrap">
+        <div class="login-card">
+          <button type="button" class="back-link" onclick="go(previousPage)">← 이전 화면</button>
+          <p class="eyebrow">TEACHER PROFILE</p>
+          <h1>서비스 준비 중입니다.</h1>
+          <p>문제풀이 영상에서 강사의 전반적인 풀이·설명 방식을 분석하고, 강사 전체 질문에 활용하는 기능을 준비하고 있습니다.</p>
+          <div class="notice">현재 발표 버전에서는 강의 영상에서 만든 lecture_profile을 사용하는 강의별 질문을 이용해 주세요.</div>
+          <button class="button primary" style="width:100%;margin-top:20px" onclick="go(previousPage)">이전 화면으로 돌아가기</button>
         </div>
       </div>
     </section>
@@ -277,13 +320,94 @@
     let activeHistory = [];
     let activeCurrentMessage = '';
     let toastTimer;
+    let previousPage = 'home';
 
-    function go(id){
+    function renderPage(id){
+      const current=document.querySelector('.page.active');
+      if(current&&current.id!==id)previousPage=current.id;
       document.querySelectorAll('.page').forEach(page=>page.classList.toggle('active',page.id===id));
       window.scrollTo({top:0,behavior:'smooth'});
       history.replaceState(null,'','#'+id);
     }
-    function logoutTo(id){go(id)}
+    const protectedPages={
+      'teacher-dashboard':{role:'teacher',login:'teacher-login'},
+      'student-dashboard':{role:'student',login:'student-login'},
+      'student-lecture':{role:'student',login:'student-login'}
+    };
+    const authModes={teacher:'login',student:'login'};
+    const authConfig=window.SOLIT_SUPABASE_CONFIG||{};
+    const authConfigured=Boolean(window.supabase?.createClient&&authConfig.url?.startsWith('https://')&&authConfig.publishableKey&&!authConfig.url.includes('YOUR_')&&!authConfig.publishableKey.includes('YOUR_'));
+    let authClient=null;
+    if(authConfigured){try{authClient=window.supabase.createClient(authConfig.url,authConfig.publishableKey)}catch(error){console.error('Supabase client initialization failed:',error)}}
+    function go(id){
+      if(protectedPages[id]){guardedGo(id);return}
+      renderPage(id);
+    }
+    async function guardedGo(id){
+      const gate=protectedPages[id];
+      if(!authClient){renderPage(gate.login);setAuthStatus(gate.role,'Supabase 설정이 필요합니다. 웹사이트 설정 후 로그인할 수 있습니다.','error');return}
+      const {data:{user},error}=await authClient.auth.getUser();
+      if(error||!user){renderPage(gate.login);setAuthStatus(gate.role,'이 페이지는 로그인 후 이용할 수 있습니다.','error');return}
+      const {data:profile,error:profileError}=await authClient.from('profiles').select('role').eq('id',user.id).single();
+      if(profileError||!profile){renderPage(gate.login);setAuthStatus(gate.role,'계정 정보를 확인할 수 없습니다. 잠시 후 다시 로그인해 주세요.','error');return}
+      if(profile.role!==gate.role){renderPage(gate.login);setAuthStatus(gate.role,'이 계정은 해당 페이지에 접근할 수 있는 역할이 아닙니다.','error');return}
+      renderPage(id);
+    }
+    async function logoutTo(id){
+      if(authClient){const {error}=await authClient.auth.signOut();if(error)toast('로그아웃에 실패했습니다. 다시 시도해 주세요.')}
+      renderPage(id);
+    }
+    function setAuthStatus(role,message,kind=''){
+      const status=document.getElementById(`${role}-auth-status`);if(!status)return;
+      status.textContent=message;status.className=`auth-status ${kind}`.trim();
+    }
+    function toggleAuthMode(role){
+      const form=document.getElementById(`${role}-login-form`),register=authModes[role]==='login';
+      authModes[role]=register?'signup':'login';
+      form.querySelector(`#${role}-auth-title`).textContent=register?'회원가입':`${role==='teacher'?'강사':'학생'} 로그인`;
+      form.querySelector(`#${role}-auth-intro`).textContent=register?'이메일과 비밀번호로 계정을 만듭니다.':'등록된 계정으로 로그인하세요.';
+      form.querySelector(`#${role}-name-wrap`).hidden=!register;
+      form.querySelector(`#${role}-name`).required=register;
+      form.querySelector(`#${role}-password`).autocomplete=register?'new-password':'current-password';
+      form.querySelector(`#${role}-auth-submit`).textContent=register?'회원가입':'로그인';
+      form.querySelector(`#${role}-auth-toggle`).textContent=register?'이미 계정이 있나요? 로그인':'처음이신가요? 회원가입';
+      setAuthStatus(role,'');
+    }
+    async function submitAuth(event){
+      event.preventDefault();const form=event.currentTarget,role=form.dataset.role,mode=authModes[role];
+      if(!form.reportValidity())return;
+      if(!authClient){setAuthStatus(role,'Supabase 설정이 완료되지 않았습니다. website/supabase-config.js에 프로젝트 URL과 publishable key를 입력해 주세요.','error');return}
+      const submit=form.querySelector('[type="submit"]');submit.disabled=true;setAuthStatus(role,mode==='signup'?'계정을 만들고 있습니다…':'로그인 중…');
+      const email=form.querySelector(`#${role}-email`).value.trim();const password=form.querySelector(`#${role}-password`).value;
+      try{
+        if(mode==='signup'){
+          const displayName=form.querySelector(`#${role}-name`).value.trim();
+          const {data,error}=await authClient.auth.signUp({email,password,options:{data:{display_name:displayName,role},emailRedirectTo:window.location.origin+window.location.pathname+'#'+(role==='teacher'?'teacher-dashboard':'student-dashboard')}});
+          if(error)throw error;
+          if(!data.session){toggleAuthMode(role);setAuthStatus(role,'가입 요청을 완료했습니다. 이메일 인증 링크를 누른 뒤 로그인해 주세요.','success');return}
+          await finishAuth(role);
+        }else{
+          const {error}=await authClient.auth.signInWithPassword({email,password});if(error)throw error;
+          await finishAuth(role);
+        }
+      }catch(error){
+        const message=error?.message||'인증 처리 중 오류가 발생했습니다.';
+        setAuthStatus(role,authMessage(message),'error');
+      }finally{submit.disabled=false}
+    }
+    function authMessage(message){
+      if(/invalid login credentials/i.test(message))return '이메일 또는 비밀번호를 확인해 주세요.';
+      if(/already registered|user already registered/i.test(message))return '이미 가입된 이메일입니다. 로그인해 주세요.';
+      if(/password should be at least/i.test(message))return '비밀번호는 8자 이상 입력해 주세요.';
+      return message;
+    }
+    async function finishAuth(requestedRole){
+      const {data:{user},error}=await authClient.auth.getUser();if(error||!user)throw error||new Error('로그인 계정을 확인하지 못했습니다.');
+      const {data:profile,error:profileError}=await authClient.from('profiles').select('role').eq('id',user.id).single();
+      if(profileError||!profile)throw new Error('계정 프로필을 찾지 못했습니다. Supabase SQL 설정을 확인해 주세요.');
+      if(profile.role!==requestedRole){await authClient.auth.signOut();throw new Error(`이 계정은 ${profile.role==='teacher'?'강사':'학생'} 계정입니다. 해당 로그인 화면을 이용해 주세요.`)}
+      setAuthStatus(requestedRole,'로그인되었습니다.','success');renderPage(requestedRole==='teacher'?'teacher-dashboard':'student-dashboard');
+    }
     function toast(message){
       const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');
       clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
@@ -323,8 +447,8 @@
       const host=document.getElementById(activeTarget);host.innerHTML='<div class="chat-placeholder">문제를 선택하면 첫 풀이 단계가 여기 표시됩니다.</div>';
       document.querySelectorAll('.problem-choice').forEach(button=>button.classList.remove('selected'));activeProblem=null;activeHistory=[];activeCurrentMessage='';
     }
-    document.getElementById('teacher-login-form').addEventListener('submit',event=>{event.preventDefault();if(event.currentTarget.reportValidity())go('teacher-dashboard')});
-    document.getElementById('student-login-form').addEventListener('submit',event=>{event.preventDefault();if(event.currentTarget.reportValidity())go('student-dashboard')});
+    document.getElementById('teacher-login-form').addEventListener('submit',submitAuth);
+    document.getElementById('student-login-form').addEventListener('submit',submitAuth);
     function previewFile(input,videoId,stateId,multiple=false){
       const files=[...input.files];if(!files.length)return;
       document.getElementById(stateId).textContent=files.map(file=>file.name).join(' · ')+(multiple?' 선택됨':' 선택됨');
@@ -332,8 +456,7 @@
     }
     document.getElementById('demo-video').addEventListener('change',event=>previewFile(event.target,'demo-preview','demo-file-state'));
     document.getElementById('teacher-lecture-file').addEventListener('change',event=>previewFile(event.target,null,'teacher-lecture-state'));
-    document.getElementById('teacher-solution-file').addEventListener('change',event=>previewFile(event.target,null,'teacher-solution-state',true));
-    function setQuestionMode(mode,button){if(mode==='lecture'){document.querySelectorAll('.mode-switch button').forEach(item=>item.classList.remove('active'));button.classList.add('active')}}
+    function setQuestionMode(mode,button){if(mode==='teacher'){go('teacher-profile-coming-soon');return}document.querySelectorAll('.mode-switch button').forEach(item=>item.classList.remove('active'));button.classList.add('active')}
     const initial=location.hash.slice(1);if(initial&&document.getElementById(initial))go(initial);
   </script>
 </body>

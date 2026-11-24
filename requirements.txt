@@ -1,0 +1,5 @@
+faster-whisper
+google-genai
+httpx[socks]
+python-dotenv
+tqdm

@@ -1,0 +1,24 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor noise
+.DS_Store
+
+# Local inputs and generated experiment artifacts (keep outside Git)
+/data/
+
+# Temporary duplicate prototype; canonical site lives in PIT/
+/website/
+/solit-example-problem.png

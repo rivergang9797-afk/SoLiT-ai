@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoLiT · 솔리트 | 내 선생님처럼 풀다</title>
+  <meta name="description" content="SoLiT(솔리트)는 고등학교 수학·수능 수학을 대상으로 강사의 풀이 방식을 반영해 학생의 이해를 돕고, 학원의 질의응답 인건비 절감을 목표로 하는 AI 학습 지원 서비스입니다.">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    :root { --ink:#203b35; --green:#28634e; --paper:#faf9f5; --line:#dce3dc; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; line-height:1.7; word-break:keep-all; }
+    a { color:inherit; text-decoration:none; }
+    button,input,textarea { font:inherit; }
+    button,a,input,textarea { -webkit-tap-highlight-color:transparent; }
+    :focus-visible { outline:3px solid #af8b37; outline-offset:4px; }
+    .wrap { width:min(1040px,calc(100% - 48px)); margin:auto; }
+    header { border-bottom:1px solid var(--line); }
+    nav { min-height:80px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { font-size:25px; font-weight:800; letter-spacing:-1px; line-height:1.3; }
+    .brand span { font-size:12px; font-weight:400; letter-spacing:.3px; display:block; margin-top:3px; }
+    .nav-link { font-size:14px; border-bottom:1px solid var(--green); }
+    .hero { padding:72px 0 64px; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:48px; align-items:center; }
+    .eyebrow { font-size:12px; font-weight:700; letter-spacing:2px; color:var(--green); }
+    h1 { font-size:clamp(22px,3vw,36px); line-height:1.35; letter-spacing:-1.3px; margin:22px 0; }
+    h1 span { display:block; white-space:nowrap; }
+    h2 { font-size:clamp(27px,3vw,36px); line-height:1.4; letter-spacing:-1px; margin:12px 0 20px; }
+    .muted { color:#61716b; }
+    .button { display:inline-block; background:var(--green); color:white; border:0; border-radius:6px; padding:13px 23px; font-weight:700; cursor:pointer; }
+    .hero .button { margin-top:20px; }
+    .note { background:#fff; border:1px solid var(--line); border-radius:10px; padding:30px; box-shadow:0 14px 40px #203b3508; }
+    .note-top { display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--line); padding-bottom:14px; font-size:12px; }
+    .question { background:#f1f3ed; padding:16px; border-radius:6px; margin:24px 0; }
+    .answer { border-left:3px solid #92b39b; padding-left:18px; }
+    .note small { display:block; color:#61716b; margin-top:24px; }
+    .features { padding:65px 0 80px; border-top:1px solid var(--line); }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:42px; }
+    .partner-options { grid-template-columns:repeat(2,1fr); }
+    .step { border-top:1px solid #acbcb0; padding-top:20px; }
+    .step span { font-size:12px; color:var(--green); }
+    .step h3 { font-size:20px; margin:12px 0; }
+    .step p { font-size:15px; color:#61716b; }
+    .signup { background:#eaf0e8; padding:72px 0; }
+    .signup-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+    label { display:block; font-size:14px; font-weight:700; margin-bottom:8px; }
+    label span { font-weight:400; color:#61716b; }
+    input,textarea { width:100%; border:1px solid #b8c7ba; background:#fff; color:var(--ink); border-radius:6px; padding:12px 14px; margin-bottom:20px; font-size:16px; }
+    textarea { resize:vertical; min-height:110px; }
+    form .button { width:100%; }
+    button:disabled { opacity:.6; cursor:wait; }
+    #form-status { margin:12px 0 0; min-height:24px; font-size:14px; color:#8c342c; }
+    .privacy { font-size:12px; color:#61716b; }
+    footer { padding:26px 0; font-size:12px; color:#61716b; }
+    .footer-row { display:flex; justify-content:space-between; gap:20px; }
+    #loading { position:fixed; inset:0; z-index:1000; background:#faf9f5e8; display:grid; place-content:center; text-align:center; }
+    #loading[hidden] { display:none; }
+    .spinner { width:30px; height:30px; margin:0 auto 14px; border:3px solid #dce3dc; border-top-color:var(--green); border-radius:50%; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    dialog { border:1px solid var(--line); border-radius:12px; padding:36px; width:min(420px,calc(100% - 40px)); color:var(--ink); }
+    dialog::backdrop { background:#142e2766; }
+    dialog h2 { font-size:27px; }
+    dialog .button { width:100%; margin-top:15px; }
+    @media(max-width:720px) {
+      .wrap { width:calc(100% - 36px); }
+      .hero { grid-template-columns:1fr; gap:36px; padding:56px 0; }
+      h1 { font-size:clamp(20px,5.4vw,36px); letter-spacing:-1px; }
+      .steps,.partner-options,.signup-grid { grid-template-columns:1fr; gap:24px; }
+      .features,.signup { padding:48px 0; }
+      .note { padding:24px; }
+      .footer-row { flex-direction:column; gap:6px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .spinner { animation:none; } }
+
+    .chat-example { min-width:0; }
+    .example-notes { padding:0 4px; }
+    .example-notes small { display:block; font-size:11px; color:#61716b; line-height:1.6; margin-top:8px; }
+    .chat-preview { padding:24px; width:100%; height:640px; margin:0 auto; display:flex; flex-direction:column; overflow:hidden; }
+    .chat-label { display:block; font-size:11px; color:#61716b; margin-bottom:8px; }
+    .chat-preview .note-top { flex:0 0 auto; }
+    .chat-messages { flex:1 1 auto; min-height:0; overflow-y:auto; overflow-x:hidden; scrollbar-gutter:stable; padding-right:8px; overscroll-behavior:contain; overflow-wrap:anywhere; }
+    .chat-student { width:88%; margin:20px 0 20px auto; background:#e5eee2; padding:16px; border-radius:14px 14px 3px 14px; }
+    .chat-student p,.chat-teacher p { font-size:14px; line-height:1.7; margin:10px 0 0; }
+    .problem-preview { display:block; background:white; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+    .photo-edit-label { display:flex; align-items:center; flex-wrap:wrap; gap:6px; padding:8px 10px; margin-top:18px; background:#fff6d9; color:#735520; font-size:11px; border:1px dashed #cbb778; border-radius:4px; }
+    .photo-edit-label strong { background:#735520; color:white; padding:1px 6px; border-radius:3px; font-size:10px; }
+    .problem-preview img { display:block; width:100%; height:340px; object-fit:contain; background:white; }
+    .chat-teacher { width:92%; margin:0 auto 0 0; background:#f4f5f1; border:1px solid var(--line); border-radius:14px 14px 14px 3px; padding:16px; }
+    .chat-preview small { font-size:11px; line-height:1.6; margin-top:16px; }
+    .service-flow { border-top:1px solid var(--line); padding:36px 0 44px; }
+    .service-flow h2 { font-size:24px; }
+    .flow-list { display:grid; grid-template-columns:repeat(4,1fr); list-style:none; padding:0; margin:24px 0 0; gap:24px; }
+    .flow-list li { border-top:2px solid #92b39b; padding-top:14px; position:relative; }
+    .flow-list li:not(:last-child)::after { content:'→'; position:absolute; right:-18px; top:35px; color:#61716b; }
+    .flow-list span { display:block; color:var(--green); font-size:11px; }
+    .flow-list strong { display:block; font-size:14px; margin-top:5px; }
+    @media(max-width:720px) {
+      .flow-list { grid-template-columns:1fr 1fr; }
+      .flow-list li::after { display:none; }
+      .chat-preview { padding:14px; height:580px; }
+      .chat-student { width:90%; margin-left:auto; padding:10px; }
+    }
+
+
+    /* First-screen balance: two-line headline beside a viewport-sized demo. */
+    .wrap { width:min(1200px,calc(100% - 64px)); }
+    nav { min-height:64px; }
+    .hero { grid-template-columns:minmax(0,1.12fr) minmax(0,1fr); gap:48px; padding:24px 0 28px; min-height:calc(100svh - 65px); }
+    .hero h1 { font-size:clamp(27px,3.5vw,46px); line-height:1.3; letter-spacing:-1.6px; margin:20px 0 24px; }
+    .hero .muted { font-size:15px; line-height:1.75; }
+    .hero .button { margin-top:12px; }
+    .chat-preview { height:clamp(380px,calc(100svh - 200px),580px); padding:18px; }
+    .chat-preview .note-top { font-size:12px; padding-bottom:12px; }
+    .chat-student { padding:10px; margin-top:12px; margin-bottom:12px; }
+    .problem-preview img { height:190px; }
+    .chat-teacher { padding:12px; }
+    .chat-student p,.chat-teacher p { font-size:13px; line-height:1.6; margin-top:8px; }
+    .chat-label { margin-bottom:6px; }
+    .photo-edit-label { margin-top:10px; padding:5px 8px; }
+    .example-notes small { font-size:10px; margin-top:5px; line-height:1.5; }
+    .flow-list .flow-role { font-size:20px; font-weight:800; color:var(--ink); margin:6px 0 8px; line-height:1.3; }
+    @media(max-width:720px) {
+      .wrap { width:calc(100% - 36px); }
+      .hero { grid-template-columns:1fr; gap:28px; min-height:0; padding:40px 0; }
+      .hero h1 { font-size:clamp(22px,5.5vw,36px); letter-spacing:-1px; }
+      .chat-preview { height:540px; padding:14px; }
+      .problem-preview img { height:210px; }
+    }
+
+    .chat-preview .note-top { align-items:center; gap:10px; }
+    .chat-preview .note-top strong { font-size:clamp(16px,1.6vw,20px); font-weight:800; line-height:1.4; letter-spacing:-.5px; color:var(--ink); }
+    .chat-preview .note-top > span { flex-shrink:0; font-size:11px; color:#61716b; }
+
+    .problem-preview img { height:270px; }
+    @media(max-width:720px) {
+      .problem-preview img { height:280px; }
+    }
+
+    /* Leave room for the first AI reply below the question image. */
+    .chat-preview { height:clamp(480px,calc(100svh - 140px),680px); }
+    .hero .button { margin-top:40px; }
+    @media(max-width:720px) {
+      .chat-preview { height:620px; }
+      .hero .button { margin-top:28px; }
+    }
+
+    .chat-scroll-shell { position:relative; flex:1 1 auto; min-height:0; }
+    .chat-scroll-shell .chat-messages { height:100%; overflow-y:scroll; padding-bottom:14px; scrollbar-width:thin; scrollbar-color:#9bac9f #f1f3ed; }
+    .chat-messages::-webkit-scrollbar { width:7px; }
+    .chat-messages::-webkit-scrollbar-track { background:#f1f3ed; border-radius:8px; }
+    .chat-messages::-webkit-scrollbar-thumb { background:#9bac9f; border-radius:8px; }
+    .chat-scroll-shell::after { content:''; position:absolute; bottom:0; left:0; right:16px; height:72px; background:linear-gradient(transparent,#ffffffed); pointer-events:none; opacity:0; transition:opacity .25s; }
+    .chat-scroll-shell.has-more::after { opacity:1; }
+    .chat-scroll-hint { position:absolute; bottom:9px; left:50%; transform:translateX(-50%); z-index:1; width:max-content; max-width:calc(100% - 20px); padding:7px 12px; border:1px solid var(--line); border-radius:20px; background:#fffffff5; color:var(--green); font-size:11px; font-weight:700; text-align:center; pointer-events:none; opacity:0; transition:opacity .25s; }
+    .chat-scroll-shell.show-hint .chat-scroll-hint { opacity:1; }
+    .chat-scroll-hint span { margin-left:5px; }
+    @media(prefers-reduced-motion:reduce) { .chat-scroll-shell::after,.chat-scroll-hint { transition:none; } }
+    .hero .eyebrow { letter-spacing:.3px; font-size:13px; }
+    .launch-note { font-size:12px; color:#61716b; margin:12px 0 0; }
+
+    .benefits-link { display:block; width:fit-content; margin-top:22px; font-size:18px; font-weight:800; color:var(--green); text-decoration:underline; text-underline-offset:4px; }
+    .value-section { background:#eaf0e8; border-top:0; padding:48px 0 52px; scroll-margin-top:24px; }
+    .value-section h2 { font-size:clamp(26px,3vw,38px); margin-bottom:28px; }
+    .value-section .steps { margin-top:0; gap:20px; }
+    .value-section .step { background:#fff; border:1px solid #ceddce; border-radius:10px; padding:24px; }
+    .value-section .step h3 { font-size:22px; color:var(--green); }
+    .value-section .step p { color:#43594f; margin-bottom:0; }
+    @media(max-width:720px) { .value-section { padding:36px 0; } .value-section .step { padding:20px; } }
+    .site-nav { display:flex; align-items:center; gap:18px; flex-wrap:wrap; justify-content:flex-end; }
+    .site-nav .nav-link { white-space:nowrap; }
+    .site-nav .nav-link.app-entry { border:1px solid var(--line); border-radius:6px; padding:7px 11px; text-decoration:none; }
+    .try-service { padding:48px 0 56px; }
+    .try-service h2 { margin-bottom:8px; }
+    .try-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:25px; }
+    .try-card { display:flex; flex-direction:column; align-items:flex-start; padding:23px; background:#fff; border:1px solid var(--line); border-radius:10px; }
+    .try-card span { color:var(--green); font-size:11px; font-weight:700; letter-spacing:1px; }
+    .try-card h3 { margin:10px 0 8px; font-size:19px; }
+    .try-card p { color:#61716b; font-size:14px; flex:1; }
+    .try-card a { color:var(--green); font-weight:700; text-decoration:underline; text-underline-offset:4px; }
+    @media(max-width:720px) { header nav { flex-wrap:wrap; gap:8px; padding-top:10px; padding-bottom:10px; } .site-nav { width:100%; gap:8px; justify-content:space-between; } .site-nav .nav-link { font-size:11px; } .site-nav .nav-link.app-entry { padding:5px 7px; } .try-grid { grid-template-columns:1fr; } .try-service { padding:36px 0; } }
+
+    .chat-preview { height:clamp(540px,calc(100svh - 100px),760px); }
+    .example-notes { margin-top:10px; }
+    @media(max-width:720px) {
+      .chat-preview { height:680px; }
+      .benefits-link { font-size:17px; }
+    }
+    .hero-empathy { font-size:clamp(16px,1.55vw,19px); font-weight:700; line-height:1.6; margin:0 0 14px; color:var(--ink); letter-spacing:-.4px; }
+
+    .demo-controls { display:flex; flex-shrink:0; flex-direction:column; align-items:flex-end; gap:4px; }
+    .demo-controls > span { font-size:10px; color:#61716b; }
+    #demo-replay { border:1px solid var(--line); border-radius:16px; background:#f1f5ef; color:var(--green); font-size:11px; padding:4px 10px; cursor:pointer; white-space:nowrap; }
+    #demo-replay:disabled { opacity:.6; cursor:default; }
+    .demo-typing { display:flex; gap:5px; align-items:center; padding:8px 0; }
+    .demo-typing[hidden] { display:none; }
+    .demo-typing i { width:5px; height:5px; border-radius:50%; background:#7e9987; animation:typing-dot 1s infinite; }
+    .demo-typing i:nth-child(2) { animation-delay:.15s; }
+    .demo-typing i:nth-child(3) { animation-delay:.3s; }
+    @keyframes typing-dot { 0%,70%,100% { opacity:.3; } 35% { opacity:1; } }
+    .demo-arrive { animation:demo-arrive .3s ease-out; }
+    @keyframes demo-arrive { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media(prefers-reduced-motion:reduce) { .demo-arrive,.demo-typing i { animation:none; } }
+
+    header .brand { font-size:34px; line-height:1.15; }
+    header .brand span { font-size:12px; line-height:1.5; margin-top:4px; }
+    header nav { padding-top:10px; padding-bottom:10px; }
+    @media(max-width:720px) { header .brand { font-size:30px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="주 메뉴">
+      <a class="brand" href="#">SoLiT<span>솔리트 · Solve Like my Teacher</span></a>
+      <div class="site-nav">
+        <a class="nav-link app-entry" href="app.html#demo">데모 체험</a>
+        <a class="nav-link app-entry" href="app.html#teacher-login">강사 로그인</a>
+        <a class="nav-link app-entry" href="app.html#student-login">학생 로그인</a>
+        <a class="nav-link" href="#signup">출시 알림 ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">고등수학 및 수능수학 강사·학원 대상</p>
+        <h1 id="hero-title"><span>선생님의 풀이 방식 그대로,</span><span>학생의 질문에 답하는 AI.</span></h1>
+        <p class="hero-empathy">모든 문제를 직접 설명해 줄 순 없으니까.</p>
+        <p class="muted">선생님의 풀이 방식으로 답해,<br>학생이 배운 내용을 다른 문제에도 적용하도록 돕는<br>AI 챗봇, SoLiT를 준비하고 있습니다.</p>
+        <a class="button" href="#signup">출시되면 알려주세요</a>
+        <a class="benefits-link" href="#benefits">학생과 학원에 어떤 도움이 되나요? ↓</a>
+        <p class="launch-note">출시 준비 중<br>고등·수능 수학부터 시작합니다.</p>
+      </div>
+      <div class="chat-example">
+        <div class="note chat-preview" aria-label="출시 예정 챗봇의 대화 예시">
+        <div class="note-top"><strong>SoLiT · 강사A 수강생 전용 챗봇</strong><div class="demo-controls"><span>대화 예시</span><button type="button" id="demo-replay">↻ 다시 보기</button></div></div>
+          <div class="chat-scroll-shell">
+          <div class="chat-messages" tabindex="0" role="region" aria-label="예시 대화 · 스크롤해서 읽기">
+        <div class="chat-student">
+          <span class="chat-label">학생 · 문항 질문</span>
+          <div class="problem-preview">
+            <img src="solit-example-problem.png" alt="15번 수학 문항">          </div>
+          <p>이 문제 설명해주세요!</p>
+        </div>
+        <div class="chat-teacher">
+          <span class="chat-label">SoLiT · 강사A의 풀이 방식을 반영한 답변</span>
+          <p>정적분으로 정의된 함수는 <strong>일단 대입과 미분을 해야</strong> 한다고 했었죠?
+          <br>그래서 h(0) = 0, h′(x) = g(x) − f(x)예요.</p>
+          <p>수업 때 설명했던 <strong>'도함수가 차함수일 때의 극점 판정'</strong>을 적용해봅시다. <br>어디가 극점이다?
+          <strong>두 함수가 교차할 때</strong>입니다.</p> 
+          <p>따라서 문제 조건을 만족시키려면, <strong>f와 g는 한번만 교차해야</strong> 되겠네요!</p>
+          <p>그럼 이제 두 함수를 그려봅시다.</p>
+          <p><strong>...</strong></p>
+      </div>
+          </div>
+            <div class="chat-scroll-hint" aria-hidden="true">아래로 스크롤하면 답변이 이어집니다 <span>↓</span></div>
+          </div>
+        </div>
+      <div class="example-notes">
+
+        <small>출시 예정 서비스의 대화 예시입니다. 실제 AI 응답이나 특정 강사의 발언이 아닙니다.</small>
+      </div>
+      </div>
+    </section>
+
+    <section class="features value-section" id="benefits" aria-labelledby="features-title">
+      <div class="wrap">
+      <p class="eyebrow">SoLiT가 만들 변화</p>
+      <h2 id="features-title">학생에겐 풀이 적용의 길을,<br>학원에겐 비용 절감의 기회를.</h2>
+      <div class="steps">
+        <article class="step"><span>01 / 강사의 지도</span><h3>수업 밖까지 이어지는 지도</h3><p>직접 설명해 주기 어려운 문제에도, 선생님의 풀이 방식으로 답하는 AI를 제공합니다.</p></article>
+        <article class="step"><span>02 / 학생의 이해</span><h3>“선생님이라면 이렇게 푸는구나”</h3><p>여러 강의에 담긴 강사의 사고방식과 풀이 전략을 바탕으로, 새로운 문제에 접근하는 과정을 설명합니다.</p></article>
+        <article class="step"><span>03 / 강사·학원의 비용</span><h3>질의응답 인건비 절감</h3><p>AI가 학생 질문의 일부를 해결해, 사람이 답변해야 하는 시간 및 인건비를 줄입니다.</p></article>
+      </div>
+      </div>
+    </section>
+
+    <section class="try-service" aria-labelledby="try-title">
+      <div class="wrap">
+        <p class="eyebrow">SOLIT EXPERIENCE</p>
+        <h2 id="try-title">SoLiT의 사용 흐름을 체험해보세요.</h2>
+        <p class="muted">발표용 데모에서 강의 입력, 강사 자료 관리, 학생 질문 흐름을 확인할 수 있습니다.</p>
+        <div class="try-grid">
+          <article class="try-card"><span>OPEN DEMO</span><h3>데모로 문제 질문하기</h3><p>강의 영상을 선택하고, 삼차함수 비율관계 문제 풀이를 단계별로 확인합니다.</p><a href="app.html#demo">데모 열기 →</a></article>
+          <article class="try-card"><span>FOR INSTRUCTORS</span><h3>강사 화면</h3><p>강의 영상과 문제풀이 영상을 등록하는 화면을 살펴봅니다.</p><a href="app.html#teacher-login">강사 로그인 →</a></article>
+          <article class="try-card"><span>FOR STUDENTS</span><h3>학생 화면</h3><p>수강 중인 강의에서 질문하고, 강의별 질문과 강사 전체 질문의 구분을 확인합니다.</p><a href="app.html#student-login">학생 로그인 →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-flow wrap" aria-labelledby="flow-title">
+      <h2 id="flow-title">강의 영상이, 강사별 AI 챗봇으로.</h2>
+      <ol class="flow-list">
+        <li><span class="flow-number">01</span><span class="flow-role">강사·학원</span><strong>강의 영상 제공</strong></li>
+        <li><span class="flow-number">02</span><span class="flow-role">SoLiT</span><strong>강사의 풀이·설명 방식을 학습한 AI 모델 개발</strong></li>
+        <li><span class="flow-number">03</span><span class="flow-role">수강생</span><strong>문항 질문</strong></li>
+        <li><span class="flow-number">04</span><span class="flow-role">SoLiT</span><strong>강사의 방식으로 답변</strong></li>
+      </ol>
+    </section>
+
+
+
+    <section class="signup" id="signup" aria-labelledby="signup-title">
+      <div class="wrap signup-grid">
+        <div>
+          <p class="eyebrow">BE THE FIRST TO KNOW</p>
+          <h2 id="signup-title">이런 AI가 필요하다면,<br>출시 소식을 받아보세요.</h2>
+          <p class="muted">이메일을 남겨주시면 서비스 오픈 시 알려드릴게요.<br>SoLiT에 원하는 추가 기능이 있다면 들려주세요.</p>
+        </div>
+        <form id="signup-form">
+          <label for="submit-email">출시 알림을 받으실 이메일</label>
+          <input id="submit-email" name="email" type="email" autocomplete="email" placeholder="teacher@academy.com" required maxlength="254">
+          <label for="submit-advice">SoLiT에 바라는 점 <span>(선택)</span></label>
+          <textarea id="submit-advice" name="advice" placeholder="필요한 기능을 남겨주세요." maxlength="1000"></textarea>
+          <button class="button" id="submit" type="submit">출시 알림 신청하기</button>
+          <p id="form-status" role="status" aria-live="polite"></p>
+          <p class="privacy">입력한 이메일은 출시 안내에, 의견은 서비스 기획에 활용됩니다. 방문 시 쿠키 식별자·IP·유입·기기 정보와 페이지 스크롤·주요 영역 도달 기록이 수집됩니다.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer-row"><span>© SoLiT · 솔리트</span><span>강의의 이해에서, 학생의 풀이까지.</span></footer>
+
+<div id="loading" hidden role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div>출시 알림을 신청하고 있습니다.</div>
+  <dialog id="popup" aria-labelledby="popup-title">
+    <h2 id="popup-title">감사합니다.</h2>
+    <p>출시 알림 신청이 완료되었습니다.<br>서비스가 오픈되면 이메일로 알려드릴게요.</p>
+    <form method="dialog"><button class="button">확인</button></form>
+  </dialog>
+
+  <script>
+    // 본인의 Google Apps Script 웹 앱 배포 주소를 넣으세요.
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJRy8HQpkbYyDvud86WeiUWIZhhWlv1N1GCdfcn1IkIzzP0Un1pj28XK42FYmsJWLVhw/exec";
+
+    function getCookieValue(name) {
+      const item = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+      return item ? decodeURIComponent(item.slice(name.length + 1)) : '';
+    }
+
+    function getUVfromCookie() {
+      const existing = getCookieValue('user');
+      if (existing) return existing;
+      const id = Math.random().toString(36).substring(2, 8).toUpperCase();
+      document.cookie = 'user=' + id + '; max-age=' + (180 * 86400) + '; path=/; SameSite=Lax';
+      return id;
+    }
+
+    function getTimeStamp() {
+      const date = new Date();
+      const pad = value => String(value).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
+
+    async function getIP() {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      try {
+        // IPv4·IPv6 환경 모두 지원합니다.
+        const response = await fetch('https://api64.ipify.org?format=json', {
+          signal: controller.signal,
+          credentials: 'omit'
+        });
+        if (!response.ok) {
+          console.warn('IP 조회 실패: HTTP', response.status);
+          return 'unknown';
+        }
+        const result = await response.json();
+        if (typeof result.ip !== 'string' || !result.ip.trim()) {
+          console.warn('IP 조회 응답에 주소가 없습니다.');
+          return 'unknown';
+        }
+        return result.ip.trim();
+      } catch (error) {
+        console.warn('IP 조회 실패:', error.name === 'AbortError' ? '8초 시간 초과' : error.message);
+        return 'unknown';
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    // JSONP 방문 기록: 서버가 callback 응답을 지원해야 합니다.
+    async function recordVisit() {
+      if (!SCRIPT_URL || !window.jQuery) return;
+      const id = getUVfromCookie();
+      const landingUrl = window.location.href;
+      const referer = document.referrer;
+      const time_stamp = getTimeStamp();
+      const params = new URLSearchParams(location.search);
+      const utm = params.get('utm') || params.get('utm_source') || '';
+      const device = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
+      const ip = await getIP();
+      $.ajax({
+        url: SCRIPT_URL,
+        dataType: 'jsonp',
+        timeout: 10000,
+        data: { action: 'insert', table: 'visitors', data: JSON.stringify({ id, landingUrl, ip, referer, time_stamp, utm, device }) },
+        error: function () { console.warn('방문 기록 응답을 확인하지 못했습니다.'); }
+      });
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const status = document.getElementById('form-status');
+      const emailInput = document.getElementById('submit-email');
+      emailInput.value = emailInput.value.trim();
+      if (!this.reportValidity()) return;
+      if (!SCRIPT_URL) {
+        status.textContent = '지금은 신청을 받을 수 없습니다. 잠시 후 다시 시도해 주세요.';
+        return;
+      }
+      if (!window.jQuery) {
+        status.textContent = '페이지를 새로고침한 뒤 다시 시도해 주세요.';
+        return;
+      }
+      const button = document.getElementById('submit');
+      const loading = document.getElementById('loading');
+      button.disabled = true;
+      loading.hidden = false;
+      this.setAttribute('aria-busy', 'true');
+      status.textContent = '';
+      try {
+        const finalData = { id: getUVfromCookie(), email: emailInput.value, advice: document.getElementById('submit-advice').value.trim() };
+        // 서버의 callback(JSON) 응답을 JSONP로 받습니다.
+        // 이미 저장됐을 가능성이 있으므로 실패 시 자동 재전송하지 않습니다.
+        const result = await new Promise((resolve, reject) => {
+          $.ajax({
+            url: SCRIPT_URL,
+            dataType: 'jsonp',
+            timeout: 20000,
+            data: { action: 'insert', table: 'tab_final', data: JSON.stringify(finalData) },
+            success: resolve,
+            error: function (xhr, status, error) {
+              reject(new Error(error || status || 'JSONP 응답 확인 실패'));
+            }
+          });
+        });
+        if (!result || typeof result !== 'object' || result.error || result.success === false || result.status === 'error') {
+          throw new Error('서버 응답 확인 필요');
+        }
+        document.getElementById('popup').showModal();
+        this.reset();
+      } catch (error) {
+        status.textContent = '신청을 완료하지 못했습니다. 잠시 후 다시 시도해 주세요.';
+        console.error('출시 알림 신청 오류:', error.message);
+      } finally {
+        loading.hidden = true;
+        button.disabled = false;
+        this.removeAttribute('aria-busy');
+      }
+    });
+
+
+    // 페이지 스크롤과 주요 제목 노출만 기록합니다. 챗봇 내부 스크롤은 제외합니다.
+    function initPageAnalytics() {
+      if (!SCRIPT_URL || !window.jQuery) return;
+      const visitorId = getUVfromCookie();
+      const sessionId = window.crypto && typeof window.crypto.randomUUID === 'function'
+        ? window.crypto.randomUUID()
+        : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
+      const urlParams = new URLSearchParams(location.search);
+      const utm = urlParams.get('utm') || urlParams.get('utm_source') || '';
+      const recorded = new Set();
+      let requestQueue = Promise.resolve();
+      let framePending = false;
+
+      function depthPercent() {
+        const range = document.documentElement.scrollHeight - window.innerHeight;
+        if (range <= 0) return 0;
+        const top = Math.max(0, window.scrollY);
+        return top >= range - 2 ? 100 : Math.min(100, Math.floor(top / range * 100));
+      }
+
+      function recordEvent(event, depth, section) {
+        const key = event + ':' + (section || depth);
+        if (recorded.has(key)) return;
+        recorded.add(key);
+        const payload = {
+          id: visitorId,
+          session_id: sessionId,
+          event: event,
+          scroll_depth: depth,
+          section: section || '',
+          landingUrl: window.location.href,
+          utm: utm,
+          time_stamp: getTimeStamp()
+        };
+        // 동시 기록을 피하도록 순서대로 전송하며 자동 재전송은 하지 않습니다.
+        requestQueue = requestQueue.then(() => new Promise(resolve => {
+          $.ajax({
+            url: SCRIPT_URL,
+            dataType: 'jsonp',
+            timeout: 10000,
+            data: { action: 'insert', table: 'scroll_events', data: JSON.stringify(payload) },
+            complete: resolve
+          });
+        })).catch(() => {});
+      }
+
+      function recordDepth() {
+        framePending = false;
+        const depth = depthPercent();
+        [25, 50, 75, 100].forEach(milestone => {
+          if (depth >= milestone) recordEvent('scroll_depth', milestone, '');
+        });
+      }
+      window.addEventListener('scroll', () => {
+        if (!framePending) {
+          framePending = true;
+          window.requestAnimationFrame(recordDepth);
+        }
+      }, { passive:true });
+
+      if ('IntersectionObserver' in window) {
+        const titles = ['features-title', 'signup-title'];
+        const timers = new Map();
+        const sections = { 'features-title': 'benefits', 'signup-title': 'signup' };
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            const target = entry.target;
+            if (timers.has(target)) {
+              clearTimeout(timers.get(target));
+              timers.delete(target);
+            }
+            if (!entry.isIntersecting || entry.intersectionRatio < 0.6) return;
+            // 제목이 0.8초 이상 보였을 때 해당 영역 도달로 기록합니다.
+            timers.set(target, setTimeout(() => {
+              timers.delete(target);
+              if (document.visibilityState !== 'visible') return;
+              recordEvent('section_view', depthPercent(), sections[target.id]);
+              observer.unobserve(target);
+            }, 800));
+          });
+        }, { threshold:[0, 0.6] });
+        titles.forEach(id => {
+          const target = document.getElementById(id);
+          if (target) observer.observe(target);
+        });
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            titles.forEach(id => {
+              const target = document.getElementById(id);
+              if (target && !recorded.has('section_view:' + sections[id])) {
+                observer.unobserve(target);
+                observer.observe(target);
+              }
+            });
+          } else {
+            timers.forEach(timer => clearTimeout(timer));
+            timers.clear();
+          }
+        });
+      }
+    }
+
+    recordVisit();
+    initPageAnalytics();
+  </script>
+
+  <script>
+    // 길어진 대화는 내부 스크롤로 읽을 수 있음을 안내합니다.
+    (() => {
+      const messages = document.querySelector('.chat-messages');
+      const shell = document.querySelector('.chat-scroll-shell');
+      let hasScrolled = false;
+      function updateScrollHint() {
+        const overflows = messages.scrollHeight > messages.clientHeight + 2;
+        const atEnd = messages.scrollTop + messages.clientHeight >= messages.scrollHeight - 3;
+        shell.classList.toggle('has-more', overflows && !atEnd);
+        shell.classList.toggle('show-hint', overflows && !atEnd && !hasScrolled);
+      }
+      messages.addEventListener('scroll', () => {
+        if (messages.scrollTop > 2) hasScrolled = true;
+        updateScrollHint();
+      }, { passive:true });
+      messages.querySelectorAll('img').forEach(img => img.addEventListener('load', updateScrollHint));
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(updateScrollHint);
+        observer.observe(messages);
+        Array.from(messages.children).forEach(child => observer.observe(child));
+      }
+      window.addEventListener('resize', updateScrollHint);
+      window.addEventListener('load', updateScrollHint);
+      if (document.fonts) document.fonts.ready.then(updateScrollHint);
+      updateScrollHint();
+    })();
+  </script>
+
+  <script>
+    // 미리 작성한 대화 예시를 재생합니다. 실제 AI 요청은 하지 않습니다.
+    (() => {
+      const messages = document.querySelector('.chat-messages');
+      const student = messages.querySelector('.chat-student');
+      const teacher = messages.querySelector('.chat-teacher');
+      const replay = document.getElementById('demo-replay');
+      const paragraphs = Array.from(teacher.querySelectorAll('p'));
+      const originals = paragraphs.map(p => p.innerHTML);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const dots = document.createElement('div');
+      dots.className = 'demo-typing';
+      dots.hidden = true;
+      dots.setAttribute('aria-hidden', 'true');
+      dots.innerHTML = '<i></i><i></i><i></i>';
+      teacher.append(dots);
+      const playbackStatus = document.createElement('span');
+      playbackStatus.className = 'demo-playback-status';
+      playbackStatus.setAttribute('role', 'status');
+      playbackStatus.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);';
+      replay.after(playbackStatus);
+      let run = 0;
+      let follow = true;
+      const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+      function scrollWithReply() {
+        if (follow) messages.scrollTop = messages.scrollHeight;
+      }
+      // 사용자가 직접 대화를 탐색하기 시작하면 자동 스크롤을 중단합니다.
+      messages.addEventListener('wheel', () => { follow = false; }, { passive:true });
+      messages.addEventListener('touchstart', () => { follow = false; }, { passive:true });
+      messages.addEventListener('pointerdown', () => { follow = false; });
+      messages.addEventListener('keydown', event => {
+        if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key)) follow = false;
+      });
+      function showAll() {
+        run++;
+        student.hidden = false;
+        teacher.hidden = false;
+        paragraphs.forEach((p, index) => { p.innerHTML = originals[index]; p.hidden = false; });
+        dots.hidden = true;
+        replay.disabled = false;
+        replay.textContent = '↻ 다시 보기';
+      }
+      async function play() {
+        if (reducedMotion.matches) { showAll(); return; }
+        const token = ++run;
+        follow = true;
+        replay.disabled = true;
+        replay.textContent = '재생 중';
+        playbackStatus.textContent = '미리 작성된 대화 예시를 재생합니다.';
+        student.hidden = false;
+        student.classList.remove('demo-arrive');
+        void student.offsetWidth;
+        student.classList.add('demo-arrive');
+        teacher.hidden = true;
+        paragraphs.forEach((p, index) => { p.innerHTML = originals[index]; p.hidden = true; });
+        messages.scrollTop = 0;
+        await sleep(1200);
+        if (token !== run) return;
+        teacher.hidden = false;
+        dots.hidden = false;
+        scrollWithReply();
+        await sleep(900);
+        for (const paragraph of paragraphs) {
+          if (token !== run) return;
+          dots.hidden = true;
+          if (paragraph.textContent.trim() === '...') {
+            paragraph.hidden = false;
+            scrollWithReply();
+            continue;
+          }
+          const walker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
+          const nodes = [];
+          while (walker.nextNode()) {
+            const node = walker.currentNode;
+            nodes.push({ node, text:Array.from(node.textContent) });
+            node.textContent = '';
+          }
+          paragraph.hidden = false;
+          for (const item of nodes) {
+            for (let count = 0; count < item.text.length; count += 2) {
+              if (token !== run) return;
+              item.node.textContent += item.text.slice(count, count + 2).join('');
+              scrollWithReply();
+              await sleep(42);
+            }
+          }
+          const next = paragraphs[paragraphs.indexOf(paragraph) + 1];
+          if (next && next.textContent.trim() === '...') continue;
+          dots.hidden = false;
+          scrollWithReply();
+          await sleep(850);
+        }
+        if (token !== run) return;
+        dots.hidden = true;
+        replay.disabled = false;
+        replay.textContent = '↻ 다시 보기';
+        playbackStatus.textContent = '대화 예시 재생이 끝났습니다.';
+      }
+      replay.addEventListener('click', play);
+      reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) showAll(); });
+      if (!reducedMotion.matches && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) {
+            observer.disconnect();
+            const image = student.querySelector('img');
+            if (image && !image.complete) image.addEventListener('load', play, { once:true });
+            else play();
+          }
+        }, { threshold:.35 });
+        observer.observe(document.querySelector('.chat-preview'));
+      }
+    })();
+  </script>
+</body>
+</html>

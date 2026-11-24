@@ -1,0 +1,1 @@
+"""SoLiT application package."""

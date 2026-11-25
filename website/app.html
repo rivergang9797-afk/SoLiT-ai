@@ -70,9 +70,49 @@
     .upload-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--mint);color:var(--green);margin:0 auto 12px;font-size:19px;font-weight:800}
     .upload-zone strong{display:block;font-size:14px}
     .upload-zone span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-    .video-preview{width:100%;max-height:230px;display:none;background:#101a16;border-radius:12px;margin-top:14px}
     .notice{font-size:12px;color:#65756d;background:#f4f6f2;border-radius:10px;padding:12px 14px;margin:16px 0 0}
     .file-state{margin-top:12px;font-size:13px;color:var(--green);font-weight:650}
+    .demo-flow{padding-bottom:76px}
+    .demo-progress{display:flex;align-items:center;gap:10px;margin:8px 0 20px;color:var(--muted);font-size:13px;font-weight:700}
+    .demo-progress-step{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:white;color:var(--muted)}
+    .demo-progress-step.active{background:var(--green);border-color:var(--green);color:white}
+    .demo-progress-step.done{border-color:#9ab5a0;color:var(--green)}
+    .demo-screen[hidden]{display:none!important}
+    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .demo-video-mock{border:1.5px dashed #b7c8bb;border-radius:16px;background:#fafbf8;padding:26px;text-align:center;color:var(--muted)}
+    .demo-video-mock .upload-icon{margin:0 auto 12px}
+    .demo-library-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .demo-library-row:last-child{border:0}
+    .demo-lecture-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--mint);color:var(--green);font-size:20px;font-weight:850}
+    .demo-library-row strong{display:block}.demo-library-row small{display:block;margin-top:3px;color:var(--muted);font-size:12px}
+    .demo-screen-actions{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+    .demo-course-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px;border:1px solid #8cad95;border-radius:14px;background:#f5f8f4;color:var(--ink);text-align:left}
+    .demo-course-option strong{display:block}.demo-course-option small{display:block;color:var(--muted);margin-top:4px}
+    .demo-chat-shell{margin-top:18px;overflow:hidden;padding:0}
+    .demo-chat-messages{padding:22px;min-height:160px;max-height:420px;overflow:auto;background:#fbfcf9}
+    .demo-composer{padding:14px;background:white;border-top:1px solid var(--line)}
+    .demo-composer-box{border:1px solid #d6dfd6;border-radius:18px;padding:12px;background:white;box-shadow:0 3px 14px #17392b0a}
+    .demo-attachments{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+    .demo-attachment{position:relative;width:94px;height:96px;border-radius:12px;border:1px solid var(--line);overflow:hidden;background:#f2f5f0}
+    .demo-attachment img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .demo-attachment-name{position:absolute;left:0;right:0;bottom:0;padding:3px 5px;background:#15251fd9;color:white;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-attachment-remove{position:absolute;right:5px;top:5px;width:23px;height:23px;border:0;border-radius:50%;background:#fff;color:#263a31;font-weight:800;line-height:1}
+    .demo-composer textarea{display:block;width:100%;min-height:50px;max-height:130px;resize:vertical;border:0;outline:0;padding:4px 2px;color:var(--ink);background:transparent;font-size:14px}
+    .demo-composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+    .demo-attach-button{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--green);padding:8px 12px;font-size:13px;font-weight:750}
+    .demo-attach-button span{font-size:17px;margin-right:5px;vertical-align:-1px}
+    .demo-send-button{border:0;border-radius:999px;background:var(--green);color:white;padding:9px 15px;font-weight:750;font-size:13px}
+    .demo-send-button:disabled{opacity:.45;cursor:not-allowed}
+    .demo-example-list{display:grid;gap:9px}
+    .demo-example{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;padding:9px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);text-align:left}
+    .demo-example:hover{border-color:#7fa18a;background:#f7faf6}
+    .demo-example img{width:46px;height:55px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:6px}
+    .demo-example strong{display:block;font-size:12px}.demo-example small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+    .demo-example-add{font-size:11px;color:var(--green);font-weight:800;white-space:nowrap}
+    .demo-answer-host{margin-top:14px}
+    #demo-answer .chat-head{padding:10px 4px}
+    #demo-answer .chat-body{min-height:0;max-height:none;overflow:visible;padding:18px 4px;background:transparent}
+    #demo-answer .chat-actions{border-radius:12px}
     .problem-list{display:grid;gap:10px}
     .problem-choice{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line);border-radius:13px;background:white;padding:10px 14px;color:var(--ink);transition:.18s ease}
     .problem-choice:hover,.problem-choice.selected{border-color:#6e9a7c;background:#f5f8f4}
@@ -129,8 +169,8 @@
     .footer{border-top:1px solid var(--line);padding:23px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:14px}
     .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#173e32;color:white;padding:12px 18px;border-radius:999px;font-size:13px;box-shadow:var(--shadow);transition:.2s ease;z-index:20}
     .toast.show{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:800px){.home-hero{grid-template-columns:1fr;gap:30px;padding-top:53px}.hero-visual{min-height:325px}.workspace-grid{grid-template-columns:1fr}.home-links{grid-template-columns:1fr}.entry-card{min-height:150px}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
-    @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:22px}.brand small{font-size:8px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}.home-hero{padding-top:42px}h1{letter-spacing:-2.6px}.hero-visual{padding:20px;min-height:300px}.demo-card{padding:19px;margin:20px auto}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.footer{flex-direction:column}}
+    @media(max-width:800px){.home-hero{grid-template-columns:1fr;gap:30px;padding-top:53px}.hero-visual{min-height:325px}.workspace-grid,.demo-grid{grid-template-columns:1fr}.home-links{grid-template-columns:1fr}.entry-card{min-height:150px}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
+    @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:22px}.brand small{font-size:8px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}.home-hero{padding-top:42px}h1{letter-spacing:-2.6px}.hero-visual{padding:20px;min-height:300px}.demo-card{padding:19px;margin:20px auto}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.demo-progress{gap:5px;font-size:11px}.demo-progress-step{padding:8px 10px;font-size:11px}.demo-screen-actions{flex-direction:column-reverse}.demo-library-row{grid-template-columns:45px minmax(0,1fr)}.demo-library-row>.pill{grid-column:2;justify-self:start}.demo-lecture-icon{width:42px;height:42px}.demo-example{grid-template-columns:42px minmax(0,1fr)}.demo-example img{width:40px;height:49px}.demo-example-add{grid-column:2;justify-self:start}.demo-attachment{width:78px;height:82px}.footer{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -168,37 +208,59 @@
         </div>
       </div>
       <div class="shell home-links" aria-label="SoLiT 이용 경로">
-        <button class="entry-card" onclick="go('demo')"><span class="arrow">↗</span><span class="entry-icon">01</span><h3>바로 데모해보기</h3><p>강의 영상을 선택하고, 샘플 문제를 한두 단계씩 질문해 보세요.</p></button>
+        <button class="entry-card" onclick="go('demo')"><span class="arrow">↗</span><span class="entry-icon">01</span><h3>바로 데모해보기</h3><p>강사 화면에서 학생 화면까지 순서대로 둘러보세요.</p></button>
         <button class="entry-card" onclick="go('teacher-login')"><span class="arrow">↗</span><span class="entry-icon">02</span><h3>강사로 시작하기</h3><p>강의와 문제풀이 영상을 관리하는 강사 화면을 확인하세요.</p></button>
         <button class="entry-card" onclick="go('student-login')"><span class="arrow">↗</span><span class="entry-icon">03</span><h3>학생으로 시작하기</h3><p>수강 중인 강의에서 질문하거나 강사 전체 질문으로 이동하세요.</p></button>
       </div>
     </section>
 
     <section class="page" id="demo">
-      <div class="shell workspace">
-        <div class="section-head"><div><p class="eyebrow">OPEN DEMO</p><h2>강의에서 배운 개념을<br>문제에 적용해 보세요.</h2><p>샘플 강의 프로필로 두 문제를 대화형으로 풀어봅니다.</p></div><button class="button quiet" onclick="go('home')">← 홈으로</button></div>
-        <div class="workspace-grid">
-          <div>
-            <div class="panel">
-              <div class="panel-title"><div><h3>1. 강의 영상 입력</h3><p>영상 파일을 선택해 데모 화면에 연결합니다.</p></div><span class="pill">강의 영상</span></div>
-              <label class="upload-zone" for="demo-video"><input id="demo-video" type="file" accept="video/*"><span class="upload-icon">↑</span><strong>영상 파일 선택</strong><span>MP4, MOV 등 · 파일은 현재 브라우저에서만 미리보기 됩니다</span></label>
-              <video class="video-preview" id="demo-preview" controls playsinline></video>
-              <div class="file-state" id="demo-file-state" aria-live="polite"></div>
-              <p class="notice">발표용 프로토타입입니다. 선택한 영상 자체를 분석하는 기능은 아직 연결되지 않았으며, 질문응답에는 미리 만든 ‘삼차함수의 비율관계’ 프로필을 사용합니다.</p>
-            </div>
-            <div class="panel">
-              <div class="panel-title"><div><h3>2. 질문할 문제 선택</h3><p>두 문제 중 하나를 선택해 풀이를 시작하세요.</p></div><span class="pill">2개 샘플</span></div>
-              <div class="problem-list">
-                <button class="problem-choice" data-problem="002" onclick="selectProblem('002','demo')"><img class="problem-thumb" src="assets/homework-002.png" alt="문제 002 미리보기"><span><strong>접선과 곡선의 두 번째 교점</strong><small>강의의 교점 x좌표 합 관계 적용</small></span><i class="radio-mark" aria-hidden="true"></i></button>
-                <button class="problem-choice" data-problem="007" onclick="selectProblem('007','demo')"><img class="problem-thumb" src="assets/homework-007.png" alt="문제 007 미리보기"><span><strong>극댓값과 사각형의 넓이</strong><small>강의의 1:√3 관계 적용</small></span><i class="radio-mark" aria-hidden="true"></i></button>
-              </div>
-            </div>
-            <div class="panel chat-panel" id="demo-chat" aria-live="polite"><div class="chat-placeholder">문제를 선택하면 첫 풀이 단계가 여기 표시됩니다.</div></div>
+      <div class="shell demo-flow">
+        <div class="section-head"><div><p class="eyebrow">OPEN DEMO</p><h2>강사와 학생의 화면을<br>순서대로 둘러보세요.</h2><p>강의 등록부터 학생의 질문까지 SoLiT의 흐름을 체험합니다.</p></div><button class="button quiet" onclick="go('home')">← 홈으로</button></div>
+        <div class="demo-progress" aria-label="데모 진행 단계">
+          <button class="demo-progress-step active" id="demo-progress-teacher" onclick="showDemoScreen('teacher')"><span>01</span> 강사 화면</button><span aria-hidden="true">→</span>
+          <button class="demo-progress-step" id="demo-progress-student" onclick="showDemoScreen('student')"><span>02</span> 학생 화면</button>
+        </div>
+        <div class="demo-screen" id="demo-teacher-screen">
+          <div class="demo-grid">
+            <section class="panel">
+              <div class="panel-title"><div><h3>강의 영상 등록</h3><p>강사가 강의 영상을 올려 강의별 질문을 준비합니다.</p></div><span class="pill">강사 화면</span></div>
+              <div class="demo-video-mock" aria-disabled="true"><span class="upload-icon">↑</span><strong style="display:block;color:var(--ink)">강의 영상을 여기에 등록</strong><span style="display:block;margin-top:5px;font-size:12px">MP4, MOV 등 영상 파일</span><button class="button" type="button" disabled style="margin-top:16px">데모에서는 업로드할 수 없습니다</button></div>
+              <p class="notice">영상 업로드와 분석은 실제로 연결되지 않은 데모 화면입니다. 아래의 삼차함수 강의는 미리 준비한 예시입니다.</p>
+            </section>
+            <section class="panel">
+              <div class="panel-title"><div><h3>기존 강의</h3><p>강사가 등록한 강의와 프로필 상태</p></div><span class="pill">1개 강의</span></div>
+              <div class="demo-library-row"><span class="demo-lecture-icon">∿</span><span><strong>삼차함수의 비율관계</strong><small>강의 프로필 준비 완료 · 테스트 문제 8개</small></span><span class="pill"><i class="dot"></i>사용 가능</span></div>
+              <p class="notice">이 예시 강의만 학생 데모에서 질문할 수 있습니다.</p>
+            </section>
           </div>
-          <aside>
-            <div class="panel"><span class="eyebrow">HOW IT WORKS</span><h3 style="margin-top:12px">한 단계씩 확인해요</h3><p class="muted" style="font-size:13px;margin-bottom:0">설명을 확인한 뒤 ‘이해됨’을 누르면 다음 단계로 이동합니다. 막히면 현재 단계만 더 자세히 볼 수 있습니다.</p></div>
-            <div class="panel"><span class="eyebrow">LECTURE PROFILE</span><h3 style="margin-top:12px">삼차함수의 비율관계</h3><p class="muted" style="font-size:13px;margin-bottom:0">변곡점, 접선과 교점의 관계, 적용 조건을 정리한 샘플 프로필을 사용합니다.</p></div>
-          </aside>
+          <div class="demo-screen-actions"><span></span><button class="button primary" onclick="showDemoScreen('student')">학생 화면으로 이동 →</button></div>
+        </div>
+        <div class="demo-screen" id="demo-student-screen" hidden>
+          <div class="demo-grid">
+            <section class="panel">
+              <div class="panel-title"><div><h3>질문할 강의</h3><p>수강 중인 강의 중 하나를 선택하세요.</p></div><span class="pill">학생 화면</span></div>
+              <button class="demo-course-option" id="demo-course-cubic" type="button" aria-pressed="false" onclick="selectDemoCourse()"><span><strong>삼차함수의 비율관계</strong><small>담당 강사 · 강의 프로필 연결됨</small></span><span class="pill">질문 가능</span></button>
+              <p class="notice">강사 화면에서 확인한 예시 강의입니다. 다른 강의는 데모 범위에 포함되지 않습니다.</p>
+            </section>
+            <section class="panel" id="demo-example-panel" hidden>
+              <div class="panel-title"><div><h3>테스트 문제 첨부</h3><p>확인된 예시 문제를 대화창에 붙여넣어 볼 수 있습니다.</p></div><span class="pill">예시 2개</span></div>
+              <div class="demo-example-list">
+                <button class="demo-example" type="button" onclick="attachDemoExample('002')"><img src="assets/homework-002.png" alt="테스트 문제 002"><span><strong>접선과 곡선의 두 번째 교점</strong><small>교점 x좌표의 합 관계</small></span><span class="demo-example-add">＋ 첨부</span></button>
+                <button class="demo-example" type="button" onclick="attachDemoExample('007')"><img src="assets/homework-007.png" alt="테스트 문제 007"><span><strong>극댓값과 사각형의 넓이</strong><small>1:√3 비율 관계</small></span><span class="demo-example-add">＋ 첨부</span></button>
+              </div>
+            </section>
+          </div>
+          <section class="panel demo-chat-shell" id="demo-chat-section" hidden>
+            <div class="chat-head"><div><strong>삼차함수의 비율관계</strong><p>문제 사진을 첨부하고 궁금한 점을 입력해 보세요.</p></div><span class="pill"><i class="dot"></i>강의 기반</span></div>
+            <div class="demo-chat-messages" id="demo-chat-messages" aria-live="polite"><div class="chat-placeholder" id="demo-chat-placeholder" style="padding:35px 15px">예시 문제를 첨부하거나 직접 문제 사진을 선택하세요.</div><div class="demo-answer-host" id="demo-answer"></div></div>
+            <form class="demo-composer" id="demo-question-form" onsubmit="sendDemoQuestion(event)">
+              <div class="demo-composer-box"><div class="demo-attachments" id="demo-attachments" hidden></div><textarea id="demo-question-text" maxlength="1000" placeholder="문제에 대해 질문하세요"></textarea>
+                <div class="demo-composer-bottom"><div><input id="demo-question-file" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden><button class="demo-attach-button" type="button" onclick="document.getElementById('demo-question-file').click()"><span>＋</span>사진 첨부</button><small style="margin-left:8px;color:var(--muted);font-size:11px">최대 2장</small></div><button class="demo-send-button" id="demo-send-button" type="submit" disabled>전송 ↑</button></div>
+              </div><p class="notice" style="margin-bottom:0">실제 이미지 분석은 아직 연결되지 않았습니다. 답변을 체험하려면 위의 테스트 문제를 첨부해 주세요.</p>
+            </form>
+          </section>
+          <div class="demo-screen-actions"><button class="button quiet" onclick="showDemoScreen('teacher')">← 강사 화면</button><span></span></div>
         </div>
       </div>
     </section>
@@ -329,6 +391,9 @@
     let activeCurrentMessage = '';
     let toastTimer;
     let previousPage = 'home';
+    let demoAttachments=[];
+    let demoUsedObjectUrls=[];
+    let demoCourseSelected=false;
 
     function renderPage(id){
       const current=document.querySelector('.page.active');
@@ -349,7 +414,74 @@
     if(authConfigured){try{authClient=window.supabase.createClient(authConfig.url,authConfig.publishableKey)}catch(error){console.error('Supabase client initialization failed:',error)}}
     function go(id){
       if(protectedPages[id]){guardedGo(id);return}
+      if(id==='demo')resetDemoFlow();
       renderPage(id);
+    }
+    function resetDemoFlow(){
+      demoAttachments.forEach(item=>{if(item.file&&item.url)URL.revokeObjectURL(item.url)});
+      demoUsedObjectUrls.forEach(url=>URL.revokeObjectURL(url));demoUsedObjectUrls=[];
+      demoAttachments=[];demoCourseSelected=false;activeProblem=null;activeStep=0;activeTarget=null;activeHistory=[];activeCurrentMessage='';
+      document.getElementById('demo-teacher-screen').hidden=false;document.getElementById('demo-student-screen').hidden=true;
+      document.getElementById('demo-progress-teacher').className='demo-progress-step active';document.getElementById('demo-progress-student').className='demo-progress-step';
+      document.getElementById('demo-course-cubic').setAttribute('aria-pressed','false');
+      document.getElementById('demo-example-panel').hidden=true;document.getElementById('demo-chat-section').hidden=true;
+      document.getElementById('demo-attachments').innerHTML='';document.getElementById('demo-attachments').hidden=true;
+      document.getElementById('demo-question-file').value='';document.getElementById('demo-question-text').value='';
+      document.getElementById('demo-chat-messages').innerHTML='<div class="chat-placeholder" id="demo-chat-placeholder" style="padding:35px 15px">예시 문제를 첨부하거나 직접 문제 사진을 선택하세요.</div><div class="demo-answer-host" id="demo-answer"></div>';
+      document.getElementById('demo-send-button').disabled=true;
+    }
+    function showDemoScreen(screen){
+      const teacher=screen==='teacher';
+      document.getElementById('demo-teacher-screen').hidden=!teacher;document.getElementById('demo-student-screen').hidden=teacher;
+      document.getElementById('demo-progress-teacher').className=`demo-progress-step ${teacher?'active':demoCourseSelected?'done':''}`;
+      document.getElementById('demo-progress-student').className=`demo-progress-step ${teacher?'':'active'}`;
+      if(!teacher)window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function selectDemoCourse(){
+      demoCourseSelected=true;document.getElementById('demo-course-cubic').setAttribute('aria-pressed','true');
+      document.getElementById('demo-example-panel').hidden=false;document.getElementById('demo-chat-section').hidden=false;
+      document.getElementById('demo-progress-teacher').className='demo-progress-step done';
+      document.getElementById('demo-chat-section').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function attachDemoExample(id){
+      if(!demoCourseSelected){toast('먼저 질문할 강의를 선택해 주세요.');return}
+      if(demoAttachments.some(item=>item.sampleId)){toast('테스트 예시는 한 번에 하나씩 첨부할 수 있습니다.');return}
+      if(demoAttachments.some(item=>item.file)){toast('예시 문제를 첨부하려면 직접 선택한 사진을 먼저 제거해 주세요.');return}
+      if(demoAttachments.length>=2){toast('사진은 최대 2장까지 첨부할 수 있습니다.');return}
+      demoAttachments.push({sampleId:id,name:`테스트 문제 ${id}`,url:`assets/homework-${id}.png`,file:false});renderDemoAttachments();
+    }
+    function handleDemoFileChange(event){
+      if(demoAttachments.some(item=>item.sampleId)){toast('직접 사진을 첨부하려면 예시 문제를 먼저 제거해 주세요.');event.target.value='';return}
+      const files=[...event.target.files];const slots=2-demoAttachments.length;
+      if(!slots){toast('사진은 최대 2장까지 첨부할 수 있습니다.');event.target.value='';return}
+      files.slice(0,slots).forEach(file=>{
+        if(!['image/jpeg','image/png','image/webp'].includes(inferredMime(file))){toast('JPG, PNG, WebP 사진만 첨부할 수 있습니다.');return}
+        if(file.size>10*1024*1024){toast('사진은 한 장당 10MB 이하만 첨부할 수 있습니다.');return}
+        demoAttachments.push({name:file.name,url:URL.createObjectURL(file),file:true});
+      });
+      if(files.length>slots)toast('한 번에 최대 2장까지만 첨부했습니다.');event.target.value='';renderDemoAttachments();
+    }
+    function renderDemoAttachments(){
+      const host=document.getElementById('demo-attachments');host.hidden=!demoAttachments.length;
+      host.innerHTML=demoAttachments.map((item,index)=>`<div class="demo-attachment"><img src="${escapeHTML(item.url)}" alt="${escapeHTML(item.name)}"><span class="demo-attachment-name">${escapeHTML(item.name)}</span><button class="demo-attachment-remove" type="button" aria-label="${escapeHTML(item.name)} 첨부 제거" onclick="removeDemoAttachment(${index})">×</button></div>`).join('');
+      document.getElementById('demo-send-button').disabled=!demoAttachments.length&&!document.getElementById('demo-question-text').value.trim();
+    }
+    function removeDemoAttachment(index){
+      const [item]=demoAttachments.splice(index,1);if(item?.file&&item.url)URL.revokeObjectURL(item.url);renderDemoAttachments();
+    }
+    function sendDemoQuestion(event){
+      event.preventDefault();const question=document.getElementById('demo-question-text').value.trim();
+      if(!demoAttachments.length&&!question){toast('문제 사진을 첨부하거나 질문을 입력해 주세요.');return}
+      const thread=document.getElementById('demo-chat-messages');const answerHost=document.getElementById('demo-answer');
+      thread.querySelector('.chat-placeholder')?.remove();answerHost.innerHTML='';
+      const images=demoAttachments.map(item=>`<img src="${escapeHTML(item.url)}" alt="첨부한 문제 사진" style="display:block;max-width:180px;max-height:150px;object-fit:contain;border-radius:9px;margin:0 0 8px">`).join('');
+      const bubble=document.createElement('div');bubble.className='bubble user';bubble.innerHTML=`${images}${escapeHTML(question||'이 문제를 강의 내용과 연결해 설명해 주세요.')}`;thread.insertBefore(bubble,answerHost);
+      const sample=demoAttachments.find(item=>item.sampleId);
+      if(sample){activeProblem=sample.sampleId;activeStep=0;activeTarget='demo-answer';activeHistory=[];activeCurrentMessage='';showStep('demo-answer',0)}
+      else answerHost.innerHTML='<div class="bubble assistant">사진 첨부와 질문 입력은 동작합니다. 다만 현재 데모는 제공된 테스트 예시 문제 002와 007에 대해서만 풀이 답변을 보여줍니다.</div>';
+      demoAttachments.forEach(item=>{if(item.file&&item.url)demoUsedObjectUrls.push(item.url)});demoAttachments=[];
+      document.getElementById('demo-attachments').innerHTML='';document.getElementById('demo-attachments').hidden=true;
+      document.getElementById('demo-question-text').value='';document.getElementById('demo-send-button').disabled=true;thread.scrollTop=thread.scrollHeight;
     }
     async function guardedGo(id){
       const gate=protectedPages[id];
@@ -527,7 +659,8 @@
       document.getElementById(stateId).textContent=files.map(file=>file.name).join(' · ')+(multiple?' 선택됨':' 선택됨');
       if(videoId){const video=document.getElementById(videoId);video.src=URL.createObjectURL(files[0]);video.style.display='block';video.load()}
     }
-    document.getElementById('demo-video').addEventListener('change',event=>previewFile(event.target,'demo-preview','demo-file-state'));
+    document.getElementById('demo-question-file').addEventListener('change',handleDemoFileChange);
+    document.getElementById('demo-question-text').addEventListener('input',()=>{document.getElementById('demo-send-button').disabled=!demoAttachments.length&&!document.getElementById('demo-question-text').value.trim()});
     document.getElementById('teacher-lecture-file').addEventListener('change',event=>{const file=event.target.files[0];document.getElementById('teacher-lecture-state').textContent=file?`${file.name} · ${formatBytes(file.size)}`:''});
     document.getElementById('student-question-file').addEventListener('change',event=>{const file=event.target.files[0];document.getElementById('student-question-state').textContent=file?`${file.name} · ${formatBytes(file.size)}`:''});
     function formatBytes(bytes){return bytes<1024*1024?`${Math.ceil(bytes/1024)}KB`:`${(bytes/1024/1024).toFixed(1)}MB`}

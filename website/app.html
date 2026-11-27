@@ -389,32 +389,32 @@
         {
           title:'접점과 변곡점으로 교점 x좌표 찾기',
           lectureConcept:'세 교점 x좌표의 합 = 변곡점 x좌표의 3배',
-          lectureReason:'접점 A는 중근이므로 x좌표 1을 두 번 세고, 변곡점 x좌표는 0입니다.',
-          text:'나머지 교점의 x좌표를 x_B라 두면, 세 교점의 x좌표 합을 이용해 바로 구할 수 있어요.',
+          lectureReason:'접점 $A$는 중근이라 $x=1$을 두 번 셉니다. 변곡점의 x좌표는 $0$입니다.',
+          text:'나머지 교점의 x좌표를 미지수로 두면, 세 교점의 x좌표 합으로 바로 구할 수 있어요.',
           equation:'1+1+x_{B}=3\\times0 \\implies x_{B}=-2',
-          detail:'접선과 곡선의 교점에서 접점 A는 중근이므로 x좌표 1을 두 번 셉니다. 나머지 교점 B의 x좌표를 x_B라 놓으면 세 x좌표의 합은 1+1+x_B입니다. 변곡점 x좌표가 0이므로 합은 3×0=0이고, 따라서 x_B=-2입니다.'
+          detail:'접선과 곡선의 교점에서 접점 $A$는 중근이므로 x좌표 $1$을 두 번 셉니다. 따라서 세 x좌표의 합은 접점의 x좌표를 두 번 더하고, 나머지 교점의 x좌표를 더한 값입니다. 변곡점의 x좌표가 $0$이므로 그 합은 $0$이고, 위 식에서 나머지 교점의 x좌표는 $-2$입니다.'
         },
         {
           title:'B의 좌표와 선분 길이 계산하기',
-          text:'B의 x좌표를 함수에 넣으면 y좌표가 나옵니다. 이제 A와 B의 좌표 차이를 이용해 거리를 구하면 됩니다.',
+          text:'점 $B$의 x좌표를 함수에 넣어 y좌표를 구할게요. 그다음 $A$와 $B$의 좌표 차이로 거리를 구하면 됩니다.',
           equation:'B=(-2,2),\\quad AB=\\sqrt{(-3)^2+6^2}=3\\sqrt{5}',
-          detail:'f(-2)=(-2)³-5(-2)=2이므로 B=(-2,2)입니다. A=(1,-4)와 비교하면 가로 차이는 3, 세로 차이는 6입니다. 거리 공식에 넣으면 √(3²+6²)=√45=3√5입니다.'
+          detail:'함수에 $x=-2$를 대입하면 $f(-2)=(-2)^3-5(-2)=2$이므로 $B=(-2,2)$입니다. $A=(1,-4)$와 비교하면 가로 차이는 $3$, 세로 차이는 $6$입니다. 거리 공식에 넣으면 $\\sqrt{3^2+6^2}=\\sqrt{45}=3\\sqrt{5}$입니다.'
         }
       ],
       '007': [
         {
           title:'1:√3 관계로 x절편 찾기',
-          lectureConcept:'원점 대칭 삼차함수에서 ODₓ : OBₓ = 1 : √3',
-          lectureReason:'변곡점 O가 원점이고 D가 극점이므로, 강의에서 배운 비율관계를 적용할 수 있습니다.',
-          text:'ODₓ가 1/2이므로 이 비율을 이용해 바깥쪽 x절편 B의 x좌표를 구하겠습니다.',
-          equation:'OD_x:OB_x=1:\\sqrt{3} \\implies x_{B}=\\frac{\\sqrt{3}}{2}',
-          detail:'이 관계에서 1에 해당하는 길이는 변곡점 O부터 x축과 평행한 접선의 접점 D까지입니다. 그 x방향 거리는 1/2이므로, 바깥쪽 x절편 B까지의 거리는 √3/2입니다. 원점 대칭으로 A의 x좌표는 -√3/2입니다.'
+          lectureConcept:'O에서 극점 D까지의 거리 : O에서 바깥쪽 x절편 B까지의 거리 = 1 : √3',
+          lectureReason:'x축은 변곡점 $O$를 지나는 수평선이고 곡선과 세 점에서 만나므로, 강의의 1:√3 관계를 적용할 수 있습니다.',
+          text:'점 $D$의 x좌표가 $\\frac{1}{2}$이므로, 이 비율로 바깥쪽 x절편 $B$의 좌표를 구할게요.',
+          equation:'x_B=\\sqrt{3}x_D=\\frac{\\sqrt{3}}{2} \\implies B=\\left(\\frac{\\sqrt{3}}{2},0\\right)',
+          detail:'이 관계에서 1에 해당하는 길이는 변곡점 $O$부터 극소점 $D$까지입니다. 그 거리는 $\\frac{1}{2}$이므로, $O$에서 바깥쪽 x절편 $B$까지의 거리는 $\\frac{\\sqrt{3}}{2}$입니다. 원점 대칭이므로 $A$의 x좌표는 $-\\frac{\\sqrt{3}}{2}$입니다.'
         },
         {
           title:'넓이로 극댓값 구하기',
-          text:'AB의 길이는 √3입니다. 원점 대칭이므로 극댓값과 극솟값의 크기가 같다고 놓고, 사각형을 두 삼각형으로 나누겠습니다.',
+          text:'선분 $AB$의 길이는 $\\sqrt{3}$입니다. 원점 대칭이므로 극댓값과 극솟값의 크기가 같습니다. 극댓값을 $M$이라 하고 사각형 넓이를 이용할게요.',
           equation:'S=\\left(\\frac{1}{2}\\cdot\\sqrt{3}\\cdot M\\right)\\cdot2=\\sqrt{3}M=\\sqrt{3} \\implies M=1',
-          detail:'극댓점의 높이를 M이라 하면 극솟점의 높이는 -M입니다. 두 삼각형은 밑변 AB가 √3이고 높이가 각각 M이므로, 합한 넓이는 √3M입니다. 문제에서 넓이가 √3이므로 M=1입니다.'
+          detail:'극댓점의 높이를 $M$이라 하면 극솟점의 높이는 $-M$입니다. 두 삼각형은 밑변 $AB=\\sqrt{3}$이고 높이가 각각 $M$이므로, 합한 넓이는 $\\sqrt{3}M$입니다. 문제에서 넓이가 $\\sqrt{3}$이므로 $M=1$입니다.'
         }
       ]
     };
@@ -752,35 +752,45 @@
       const detail=document.getElementById('step-detail');
       const finish=()=>{buttons.forEach(button=>button.disabled=false);scrollDemoResponseToStart(host.closest('.demo-answer-host'));demoTypingCount=Math.max(0,demoTypingCount-1)};
       if(activeCurrentExpanded){
-        text.textContent=body;equation.hidden=false;typesetMath(equation);
+        text.innerHTML=renderTutorInlineMath(body);typesetMath(text);equation.hidden=false;typesetMath(equation);
         const detailText=detail?.querySelector('p');
         if(!detail||!detailText){finish();return}
-        detail.hidden=false;const chars=Array.from(steps[activeProblem][activeStep].detail);let offset=0;
+        detail.hidden=false;const chars=Array.from(tutorPreviewText(steps[activeProblem][activeStep].detail));let offset=0;
         const writeDetail=()=>{
           if(!detailText.isConnected){demoTypingCount=Math.max(0,demoTypingCount-1);return}
           detailText.textContent+=chars.slice(offset,offset+2).join('');offset+=2;
-          if(offset<chars.length){activeTypewriterTimer=setTimeout(writeDetail,13);return}
-          typesetMath(detail);finish();
+          if(offset<chars.length){activeTypewriterTimer=setTimeout(writeDetail,36);return}
+          detailText.innerHTML=renderTutorInlineMath(steps[activeProblem][activeStep].detail);typesetMath(detail);finish();
         };
         activeTypewriterTimer=setTimeout(writeDetail,80);return;
       }
-      const chars=Array.from(body);let offset=0;
+      const chars=Array.from(tutorPreviewText(body));let offset=0;
       const writeChunk=()=>{
         if(!text.isConnected){demoTypingCount=Math.max(0,demoTypingCount-1);return}
         text.textContent+=chars.slice(offset,offset+2).join('');offset+=2;
-        if(offset<chars.length){activeTypewriterTimer=setTimeout(writeChunk,13);return}
-        equation.hidden=false;typesetMath(equation);
+        if(offset<chars.length){activeTypewriterTimer=setTimeout(writeChunk,36);return}
+        text.innerHTML=renderTutorInlineMath(body);typesetMath(text);equation.hidden=false;typesetMath(equation);
         finish();
       };
       activeTypewriterTimer=setTimeout(writeChunk,80);
     }
     function escapeHTML(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
+    function renderTutorInlineMath(value){return escapeHTML(value).replace(/\$([^$\n]+)\$/g,(_,expression)=>`\\(${expression}\\)`)}
+    function tutorPreviewText(value){
+      return value.replace(/\$([^$\n]+)\$/g,(_,expression)=>expression
+        .replace(/-?\\frac\{\\sqrt\{3\}\}\{2\}/g,match=>match.startsWith('-')?'-√3/2':'√3/2')
+        .replace(/\\frac\{1\}\{2\}/g,'½')
+        .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,'$1/$2')
+        .replace(/\\sqrt\{([^{}]+)\}/g,'√$1')
+        .replace(/\\times/g,'×')
+        .replace(/[{}]/g,''));
+    }
     function typesetMath(element){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([element]).catch(error=>console.error('Math rendering failed:',error))}
     function clearMath(element){if(window.MathJax?.typesetClear)window.MathJax.typesetClear([element])}
     function renderTutorHistory(){
       return activeHistory.map(item=>{
         if(item.kind==='reaction')return `<div class="tutor-reaction"><span>${item.text==='여기까지 이해했어요'?'✓':'↳'} ${escapeHTML(item.text)}</span></div>`;
-        return `<article class="completed-step"><div class="step-label">STEP ${item.number} · ${escapeHTML(item.title)}</div>${item.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(item.lectureConcept)}</strong><p>${escapeHTML(item.lectureReason)}</p></div>`:''}<div class="step-answer-text">${escapeHTML(item.text)}</div><div class="step-equation">\\(${escapeHTML(item.equation)}\\)</div>${item.detail?`<div class="step-detail"><strong>조금 더 풀어보면</strong><p>${escapeHTML(item.detail)}</p></div>`:''}</article>`;
+        return `<article class="completed-step"><div class="step-label">STEP ${item.number} · ${escapeHTML(item.title)}</div>${item.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(item.lectureConcept)}</strong><p>${renderTutorInlineMath(item.lectureReason)}</p></div>`:''}<div class="step-answer-text">${renderTutorInlineMath(item.text)}</div><div class="step-equation">\\(${escapeHTML(item.equation)}\\)</div>${item.detail?`<div class="step-detail"><strong>조금 더 풀어보면</strong><p>${renderTutorInlineMath(item.detail)}</p></div>`:''}</article>`;
       }).join('');
     }
     function showStep(target,stepIndex,expanded=false){
@@ -788,7 +798,7 @@
       const body=step.text;activeCurrentExpanded=expanded;
       activeCurrentMessage=`STEP ${stepIndex+1} · ${step.title}\n${body}\n\\(${step.equation}\\)`;
       const history=renderTutorHistory();
-      const lectureCallout=step.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(step.lectureConcept)}</strong><p>${escapeHTML(step.lectureReason)}</p></div>`:'';
+      const lectureCallout=step.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(step.lectureConcept)}</strong><p>${renderTutorInlineMath(step.lectureReason)}</p></div>`:'';
       clearMath(host);
       host.innerHTML=`<div class="chat-head"><div><strong>${activeProblem==='002'?'2013학년도 6월 나형 17번':'2008학년도 10월 가형 7번'}</strong><p>풀이 ${stepIndex+1} / ${list.length} · ${escapeHTML(step.title)}</p></div><span class="pill">${expanded?'보충 설명':'진행 중'}</span></div><div class="chat-body" id="chat-messages">${history}<article class="bubble assistant"><div class="step-label">STEP ${stepIndex+1} · ${escapeHTML(step.title)}</div>${lectureCallout}<div class="step-answer-text" id="step-answer-text"></div><div class="step-equation" id="step-equation" hidden>\\(${escapeHTML(step.equation)}\\)</div>${expanded?'<div class="step-detail" id="step-detail" hidden><strong>조금 더 풀어보면</strong><p></p></div>':''}</article>${expanded?'<div class="tutor-reaction"><span>↳ 이 부분 잘 모르겠어요</span></div>':''}</div><div class="chat-actions"><button class="button primary" disabled onclick="advanceStep()">여기까지 이해했어요</button><button class="button" disabled onclick="expandStep()">이 부분 잘 모르겠어요</button></div>`;
       typesetMath(host);

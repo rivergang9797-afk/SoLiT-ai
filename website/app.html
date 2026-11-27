@@ -64,6 +64,7 @@
     .demo-progress-step.done{border-color:#9ab5a0;color:var(--green)}
     .demo-screen[hidden]{display:none!important}
     .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+    .demo-grid>.panel+.panel{margin-top:0}
     .demo-video-mock{border:1.5px dashed #b7c8bb;border-radius:16px;background:#fafbf8;padding:26px;text-align:center;color:var(--muted)}
     .demo-video-mock .upload-icon{margin:0 auto 12px}
     .demo-library-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -228,13 +229,13 @@
             <section class="panel">
               <div class="panel-title"><div><h3>강의 영상 등록</h3><p>강사가 강의 영상을 올려 강의별 질문을 준비합니다.</p></div><span class="pill">강사 화면</span></div>
               <div class="demo-video-mock" aria-disabled="true"><span class="upload-icon">↑</span><strong style="display:block;color:var(--ink)">강의 영상을 여기에 등록</strong><span style="display:block;margin-top:5px;font-size:12px">MP4, MOV 등 영상 파일</span><button class="button" type="button" disabled style="margin-top:16px">데모에서는 업로드할 수 없습니다</button></div>
-              <p class="notice">이 화면에서는 강의 영상을 업로드하거나 분석할 수 없습니다. 아래 삼차함수 강의는 데모 체험을 위해 등록된 예시 강의입니다.</p>
+              <p class="notice">데모에서는 강의 영상을 업로드하거나 분석할 수 없습니다.</p>
             </section>
             <section class="panel">
               <div class="panel-title"><div><h3>기존 등록된 강의</h3><p>폴더별로 강의를 확인할 수 있습니다.</p></div><span class="pill">폴더 2개</span></div>
               <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 개념강의</strong><span class="demo-folder-count">강의 1개</span></div><div class="demo-folder-content"><div class="demo-library-row"><span class="demo-lecture-icon">∿</span><span><strong>1강. 삼차함수의 비율관계</strong><small>강의 프로필 준비 완료 · 테스트 문제 8개</small></span><span class="pill"><i class="dot"></i>사용 가능</span></div></div></div>
               <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 실전 N제</strong><span class="demo-folder-count">강의 0개</span></div><div class="demo-folder-content"><div class="demo-folder-empty">등록된 강의가 없습니다.</div></div></div>
-              <p class="notice">이 예시 강의만 학생 데모에서 질문할 수 있습니다.</p>
+              <p class="notice">삼차함수 강의는 데모 체험을 위해 등록된 예시 강의입니다. 데모에서는 이 예시 강의만 사용할 수 있습니다.</p>
             </section>
           </div>
           <div class="demo-screen-actions"><span></span><button class="button primary" onclick="showDemoScreen('student')">학생 화면으로 이동 →</button></div>

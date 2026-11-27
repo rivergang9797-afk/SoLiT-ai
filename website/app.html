@@ -63,7 +63,7 @@
     .demo-progress-step.active{background:var(--green);border-color:var(--green);color:white}
     .demo-progress-step.done{border-color:#9ab5a0;color:var(--green)}
     .demo-screen[hidden]{display:none!important}
-    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
     .demo-video-mock{border:1.5px dashed #b7c8bb;border-radius:16px;background:#fafbf8;padding:26px;text-align:center;color:var(--muted)}
     .demo-video-mock .upload-icon{margin:0 auto 12px}
     .demo-library-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -141,6 +141,7 @@
     .problem-choice.selected .radio-mark{border:5px solid var(--green)}
     .chat-panel{margin-top:18px;overflow:hidden;padding:0}
     .chat-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .demo-chat-course-folder{display:block;margin-bottom:4px;color:var(--muted);font-size:12px;font-weight:700;line-height:1.3}
     .chat-head p{color:var(--muted);font-size:12px;margin:4px 0 0}
     .chat-body{padding:24px;min-height:280px;max-height:490px;overflow:auto;background:#fbfcf9}
     .bubble{max-width:min(670px,92%);padding:15px 17px;border-radius:15px;margin:0 0 12px;font-size:14px;line-height:1.8;white-space:pre-wrap}
@@ -227,7 +228,7 @@
             <section class="panel">
               <div class="panel-title"><div><h3>강의 영상 등록</h3><p>강사가 강의 영상을 올려 강의별 질문을 준비합니다.</p></div><span class="pill">강사 화면</span></div>
               <div class="demo-video-mock" aria-disabled="true"><span class="upload-icon">↑</span><strong style="display:block;color:var(--ink)">강의 영상을 여기에 등록</strong><span style="display:block;margin-top:5px;font-size:12px">MP4, MOV 등 영상 파일</span><button class="button" type="button" disabled style="margin-top:16px">데모에서는 업로드할 수 없습니다</button></div>
-              <p class="notice">영상 업로드와 분석은 실제로 연결되지 않은 데모 화면입니다. 아래의 삼차함수 강의는 미리 준비한 예시입니다.</p>
+              <p class="notice">이 화면에서는 강의 영상을 업로드하거나 분석할 수 없습니다. 아래 삼차함수 강의는 데모 체험을 위해 등록된 예시 강의입니다.</p>
             </section>
             <section class="panel">
               <div class="panel-title"><div><h3>기존 등록된 강의</h3><p>폴더별로 강의를 확인할 수 있습니다.</p></div><span class="pill">폴더 2개</span></div>
@@ -247,7 +248,7 @@
             </section>
           </div>
           <section class="panel demo-chat-shell" id="demo-chat-section" hidden>
-            <div class="chat-head"><div><strong>삼차함수의 비율관계</strong><p>예시 문항을 선택하면 두 가지 풀이를 비교할 수 있습니다.</p></div><span class="pill"><i class="dot"></i>강의 기반</span></div>
+            <div class="chat-head"><div><small class="demo-chat-course-folder">2027 개념강의</small><strong>1강. 삼차함수의 비율관계</strong><p>강의 내용을 반영한 SoLiT의 답변과 일반 AI 답변을 비교해 보세요.</p></div><span class="pill"><i class="dot"></i>강의 기반</span></div>
             <div class="demo-chat-messages" id="demo-chat-messages" aria-live="polite"><div class="chat-placeholder" id="demo-chat-placeholder" style="padding:12px 15px">선택한 예시 문항과 답변이 여기에 표시됩니다.</div></div>
             <form class="demo-composer" id="demo-question-form" onsubmit="sendDemoQuestion(event)">
               <div class="demo-quick-examples"><p>예시 문항을 눌러 바로 첨부</p><div class="demo-example-list"><button class="demo-example" type="button" onclick="attachDemoExample('002')"><img src="assets/homework-002.png" alt="문제 예시 002"><span><strong>2013학년도 6월 나형 17번</strong><small>접선과 곡선의 두 번째 교점</small></span><span class="demo-example-attach">첨부 →</span></button><button class="demo-example" type="button" onclick="attachDemoExample('007')"><img src="assets/homework-007.png" alt="문제 예시 007"><span><strong>2008학년도 10월 가형 7번</strong><small>극댓값과 사각형의 넓이</small></span><span class="demo-example-attach">첨부 →</span></button></div></div>

@@ -24,8 +24,8 @@
     .shell{width:min(1160px,calc(100% - 48px));margin:0 auto}
     .topbar{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;background:rgba(246,247,242,.92)}
     .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%}
-    .brand{border:0;background:none;padding:0;text-align:left;color:var(--ink);font-size:25px;font-weight:850;letter-spacing:-1.5px}
-    .brand small{display:block;margin-top:-4px;color:var(--muted);font-size:10px;font-weight:650;letter-spacing:1.7px}
+    .brand{border:0;background:none;padding:0;text-align:left;color:var(--ink);font-size:25px;font-weight:850;letter-spacing:-1.5px;line-height:1.3}
+    .brand small{display:block;margin-top:3px;color:var(--muted);font-size:12px;font-weight:400;letter-spacing:.3px;line-height:1.5}
     .nav-actions{display:flex;align-items:center;gap:10px}
     .nav-button,.button{border:1px solid var(--line);background:var(--white);color:var(--ink);border-radius:999px;padding:10px 17px;font-weight:700;font-size:14px;transition:.18s ease}
     .nav-button:hover,.button:hover{transform:translateY(-1px);border-color:#9eb7a7}
@@ -35,29 +35,12 @@
     .button:disabled{opacity:.42;cursor:not-allowed;transform:none}
     main{min-height:calc(100vh - 150px)}
     .page{display:none}.page.active{display:block}
-    .home-hero{padding:76px 0 54px;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
     .eyebrow{font-size:11px;color:var(--green);font-weight:800;letter-spacing:2px;text-transform:uppercase}
     h1,h2,h3,p{margin-top:0} h1{font-size:clamp(42px,6vw,72px);letter-spacing:-4px;line-height:1.09;margin:18px 0 22px;max-width:680px}
     h2{font-size:clamp(30px,4vw,46px);letter-spacing:-2px;line-height:1.2;margin:10px 0 14px}
     h3{font-size:20px;letter-spacing:-.6px;line-height:1.3;margin:0 0 10px}
-    .lead{font-size:18px;color:var(--muted);max-width:530px;line-height:1.8}
-    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
-    .hero-visual{position:relative;min-height:360px;border-radius:28px;background:#dfeae2;overflow:hidden;padding:30px;box-shadow:var(--shadow)}
-    .hero-visual:before,.hero-visual:after{content:"";position:absolute;border:1px solid rgba(36,91,73,.15);border-radius:50%;width:320px;height:320px;right:-60px;top:-90px}
-    .hero-visual:after{width:220px;height:220px;right:-10px;top:-40px}
-    .demo-card{position:relative;z-index:1;background:white;border:1px solid #dbe5dc;border-radius:18px;padding:23px;max-width:390px;margin:28px auto;box-shadow:0 14px 35px #163c2f12}
-    .demo-card-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
     .pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 10px;background:#eef4ef;color:var(--green);font-size:11px;font-weight:750;white-space:nowrap}
     .dot{width:6px;height:6px;border-radius:50%;background:#4b946b}
-    .sample-question{padding:17px;background:#f5f7f3;border-radius:12px;margin:23px 0 17px;font-size:15px;font-weight:650}
-    .sample-answer{border-left:3px solid #8bb39a;padding-left:14px;font-size:14px;color:#344b41}
-    .sample-answer strong{color:var(--green)}
-    .home-links{padding:10px 0 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .entry-card{position:relative;text-align:left;background:white;border:1px solid var(--line);border-radius:var(--radius);padding:26px;min-height:190px;box-shadow:0 8px 28px #142f2505;transition:.2s ease}
-    .entry-card:hover{transform:translateY(-3px);border-color:#adc2b3;box-shadow:var(--shadow)}
-    .entry-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--mint);color:var(--green);font-weight:800;font-size:17px;margin-bottom:22px}
-    .entry-card p{margin:0;color:var(--muted);font-size:14px;max-width:280px}
-    .arrow{position:absolute;right:24px;top:25px;color:var(--green);font-size:20px}
     .section-head{padding:58px 0 28px;display:flex;align-items:end;justify-content:space-between;gap:20px}
     .section-head p{margin-bottom:0;color:var(--muted)}
     .workspace{padding-bottom:76px}
@@ -175,7 +158,7 @@
     .mode-note{font-size:12px;color:var(--muted);margin:0 0 18px}
     .login-wrap{min-height:calc(100vh - 160px);display:grid;place-items:center;padding:56px 0}
     .login-card{width:min(450px,100%);background:white;border:1px solid var(--line);border-radius:24px;padding:34px;box-shadow:var(--shadow)}
-    .back-link{border:0;background:none;color:var(--muted);font-size:13px;padding:0;margin-bottom:26px}
+    .back-link{display:inline-block;border:0;background:none;color:var(--muted);font-size:13px;padding:0;margin-bottom:26px}
     .login-card h1{font-size:36px;letter-spacing:-2px;margin:10px 0}
     .login-card>p{color:var(--muted);font-size:14px;margin-bottom:24px}
     .field-label{display:block;font-size:13px;font-weight:750;margin:15px 0 6px}
@@ -212,16 +195,16 @@
     .demo-image-canvas{flex:1;min-height:0;overflow:auto;padding:16px;text-align:center}
     .demo-image-canvas img{display:inline-block;max-width:none;max-height:none;object-fit:contain;vertical-align:top}
     .demo-image-caption{margin:0;padding:0 16px 12px;text-align:center;color:#ffffffb3;font-size:12px}
-    @media(max-width:800px){.home-hero{grid-template-columns:1fr;gap:30px;padding-top:53px}.hero-visual{min-height:325px}.workspace-grid,.demo-grid{grid-template-columns:1fr}.home-links{grid-template-columns:1fr}.entry-card{min-height:150px}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
+    @media(max-width:800px){.workspace-grid,.demo-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
     @media(max-width:800px){.demo-comparison,.demo-takeaway{grid-template-columns:1fr}}
-    @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:22px}.brand small{font-size:8px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}.home-hero{padding-top:42px}h1{letter-spacing:-2.6px}.hero-visual{padding:20px;min-height:300px}.demo-card{padding:19px;margin:20px auto}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.demo-progress{gap:5px;font-size:11px}.demo-progress-step{padding:8px 10px;font-size:11px}.demo-screen-actions{flex-direction:column-reverse}.demo-library-row{grid-template-columns:45px minmax(0,1fr)}.demo-library-row>.pill{grid-column:2;justify-self:start}.demo-lecture-icon{width:42px;height:42px}.demo-attachment{width:78px;height:82px}.demo-folder-head{padding:12px}.demo-folder-content{padding:0 11px}.demo-course-entry{grid-template-columns:39px minmax(0,1fr) auto}.demo-example-list{grid-template-columns:1fr}.demo-example{grid-template-columns:42px minmax(0,1fr) auto}.demo-example img{width:40px;height:48px}.footer{flex-direction:column}}
+    @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:25px}.brand small{font-size:12px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}h1{letter-spacing:-2.6px}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.demo-progress{gap:5px;font-size:11px}.demo-progress-step{padding:8px 10px;font-size:11px}.demo-screen-actions{flex-direction:column-reverse}.demo-library-row{grid-template-columns:45px minmax(0,1fr)}.demo-library-row>.pill{grid-column:2;justify-self:start}.demo-lecture-icon{width:42px;height:42px}.demo-attachment{width:78px;height:82px}.demo-folder-head{padding:12px}.demo-folder-content{padding:0 11px}.demo-course-entry{grid-template-columns:39px minmax(0,1fr) auto}.demo-example-list{grid-template-columns:1fr}.demo-example{grid-template-columns:42px minmax(0,1fr) auto}.demo-example img{width:40px;height:48px}.footer{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <button class="brand" onclick="go('home')" aria-label="SoLiT 홈으로">SoLiT<small>LEARN IT. APPLY IT.</small></button>
+      <a class="brand" href="index.html" aria-label="SoLiT 메인페이지로 이동">SoLiT<small>솔리트 · Solve Like my Teacher</small></a>
       <nav class="nav-actions" aria-label="주 메뉴">
         <a class="nav-button" href="index.html">사이트 소개</a>
         <button class="nav-button" onclick="go('demo')">데모</button>
@@ -232,35 +215,9 @@
   </header>
 
   <main>
-    <section class="page active" id="home">
-      <div class="shell home-hero">
-        <div>
-          <p class="eyebrow">LECTURE-BASED MATH TUTOR</p>
-          <h1>수업에서 배운 걸<br>문제에 써먹도록.</h1>
-          <p class="lead">강의 내용을 바탕으로 학생의 질문에 답하고, 막힌 풀이를 한 단계씩 함께 풀어갑니다.</p>
-          <div class="hero-actions">
-            <button class="button primary" onclick="go('demo')">데모 체험하기 <span aria-hidden="true">↗</span></button>
-            <button class="button quiet" onclick="go('teacher-login')">강사 페이지</button>
-          </div>
-        </div>
-        <div class="hero-visual" aria-label="SoLiT 대화 예시">
-          <div class="demo-card">
-            <div class="demo-card-top"><strong>삼차함수의 비율관계</strong><span class="pill"><i class="dot"></i>강의 기반</span></div>
-            <div class="sample-question">“이 접선이 곡선과 다시 만나는 점은 어떻게 찾나요?”</div>
-            <div class="sample-answer"><strong>우선 세 교점의 x좌표 합을 볼게요.</strong><br>접점이 중근이므로 접점 좌표를 두 번 포함합니다.</div>
-          </div>
-        </div>
-      </div>
-      <div class="shell home-links" aria-label="SoLiT 이용 경로">
-        <button class="entry-card" onclick="go('demo')"><span class="arrow">↗</span><span class="entry-icon">01</span><h3>바로 데모해보기</h3><p>강사 화면에서 학생 화면까지 순서대로 둘러보세요.</p></button>
-        <button class="entry-card" onclick="go('teacher-login')"><span class="arrow">↗</span><span class="entry-icon">02</span><h3>강사로 시작하기</h3><p>강의와 문제풀이 영상을 관리하는 강사 화면을 확인하세요.</p></button>
-        <button class="entry-card" onclick="go('student-login')"><span class="arrow">↗</span><span class="entry-icon">03</span><h3>학생으로 시작하기</h3><p>수강 중인 강의에서 질문하거나 강사 전체 질문으로 이동하세요.</p></button>
-      </div>
-    </section>
-
     <section class="page" id="demo">
       <div class="shell demo-flow">
-        <div class="section-head"><div><p class="eyebrow">OPEN DEMO</p><h2>강사와 학생의 화면을<br>순서대로 둘러보세요.</h2><p>강의 등록부터 학생의 질문까지 SoLiT의 흐름을 체험합니다.</p></div><button class="button quiet" onclick="go('home')">← 홈으로</button></div>
+        <div class="section-head"><div><p class="eyebrow">OPEN DEMO</p><h2>강사와 학생의 화면을<br>순서대로 둘러보세요.</h2><p>강의 등록부터 학생의 질문까지 SoLiT의 흐름을 체험합니다.</p></div><a class="button quiet" href="index.html">← 홈으로</a></div>
         <div class="demo-progress" aria-label="데모 진행 단계">
           <button class="demo-progress-step active" id="demo-progress-teacher" onclick="showDemoScreen('teacher')"><span>01</span> 강사 화면</button><span aria-hidden="true">→</span>
           <button class="demo-progress-step" id="demo-progress-student" onclick="showDemoScreen('student')"><span>02</span> 학생 화면</button>
@@ -307,7 +264,7 @@
     <section class="page" id="teacher-login">
       <div class="shell login-wrap">
         <form class="login-card" id="teacher-login-form" data-role="teacher">
-          <button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR INSTRUCTORS</p>
+          <a class="back-link" href="index.html">← 홈으로</a><p class="eyebrow">SOLIT FOR INSTRUCTORS</p>
           <h1 id="teacher-auth-title">강사 로그인</h1><p id="teacher-auth-intro">등록된 강사 계정으로 로그인하세요.</p>
           <div class="auth-register-only" id="teacher-name-wrap" hidden><label class="field-label" for="teacher-name">이름</label><input class="field" id="teacher-name" type="text" maxlength="80" autocomplete="name" placeholder="이름"></div>
           <label class="field-label" for="teacher-email">이메일</label><input class="field" id="teacher-email" type="email" autocomplete="email" placeholder="teacher@example.com" required>
@@ -335,7 +292,7 @@
     <section class="page" id="student-login">
       <div class="shell login-wrap">
         <form class="login-card" id="student-login-form" data-role="student">
-          <button type="button" class="back-link" onclick="go('home')">← 홈으로</button><p class="eyebrow">SOLIT FOR STUDENTS</p>
+          <a class="back-link" href="index.html">← 홈으로</a><p class="eyebrow">SOLIT FOR STUDENTS</p>
           <h1 id="student-auth-title">학생 로그인</h1><p id="student-auth-intro">등록된 학생 계정으로 로그인하세요.</p>
           <div class="auth-register-only" id="student-name-wrap" hidden><label class="field-label" for="student-name">이름</label><input class="field" id="student-name" type="text" maxlength="80" autocomplete="name" placeholder="이름"></div>
           <label class="field-label" for="student-email">이메일</label><input class="field" id="student-email" type="email" autocomplete="email" placeholder="student@example.com" required>
@@ -722,7 +679,8 @@
         history.replaceState(null,'',`${location.pathname}?auth=confirmed&role=${confirmedRole}#auth-confirmed`);
         return;
       }
-      const initial=location.hash.slice(1);if(initial&&document.getElementById(initial))go(initial);
+      const initial=location.hash.slice(1);if(initial&&document.getElementById(initial)){go(initial);return}
+      window.location.replace('index.html');
     }
     async function finishAuth(requestedRole){
       const {data:{user},error}=await authClient.auth.getUser();if(error||!user)throw error||new Error('로그인 계정을 확인하지 못했습니다.');

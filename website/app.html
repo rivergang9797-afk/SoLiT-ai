@@ -66,6 +66,12 @@
     .demo-screen[hidden]{display:none!important}
     .demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
     .demo-grid>.panel+.panel{margin-top:0}
+    .demo-roster-panel{grid-column:1/-1}
+    .demo-roster-preview{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.9fr);gap:20px;align-items:start}
+    .demo-roster-fields{display:grid;gap:13px}
+    .demo-roster-folders{display:flex;flex-wrap:wrap;gap:9px}
+    .demo-roster-folders .folder-access-option{min-width:190px}
+    .demo-roster-status{padding:15px;border-radius:12px;background:#f3f6f2;color:var(--muted);font-size:13px;line-height:1.6}
     .demo-video-mock{border:1.5px dashed #b7c8bb;border-radius:16px;background:#fafbf8;padding:26px;text-align:center;color:var(--muted)}
     .demo-video-mock .upload-icon{margin:0 auto 12px}
     .demo-library-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -77,11 +83,13 @@
     .demo-folder-count{border-radius:999px;background:white;padding:4px 9px;color:var(--muted);font-size:11px;white-space:nowrap}
     .demo-folder-content{padding:0 14px}
     .demo-folder-empty{padding:13px 0;color:var(--muted);font-size:12px}
-    .demo-course-entry{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);text-align:left}
-    .demo-course-entry:last-child{border-bottom:0}
+    .demo-course-entry{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;margin:8px 0;padding:12px;border:1px solid #dce6dd;border-radius:12px;background:#fbfcf9;color:var(--ink);text-align:left;cursor:pointer;animation:demo-course-pulse 1.8s ease-in-out infinite}
+    @keyframes demo-course-pulse{0%,100%{border-color:#dce6dd;box-shadow:0 0 0 0 rgba(39,95,76,0)}50%{border-color:#54866d;box-shadow:0 0 0 5px rgba(39,95,76,.12)}}
+    .demo-course-entry[aria-pressed="true"]{animation:none;border-color:#54866d;background:#f1f6f1}
     .demo-course-entry:hover,.demo-course-entry[aria-pressed="true"]{color:var(--green)}
     .demo-course-entry strong{display:block;font-size:13px}.demo-course-entry small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
     .demo-course-entry .demo-lecture-icon{width:40px;height:40px;font-size:17px}
+    .demo-course-entry .pill{font-weight:750;color:var(--green);white-space:nowrap}
     .demo-lecture-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--mint);color:var(--green);font-size:20px;font-weight:850}
     .demo-library-row strong{display:block}.demo-library-row small{display:block;margin-top:3px;color:var(--muted);font-size:12px}
     .demo-screen-actions{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
@@ -220,10 +228,10 @@
     .demo-image-canvas{flex:1;min-height:0;overflow:auto;padding:16px;text-align:center}
     .demo-image-canvas img{display:inline-block;max-width:none;max-height:none;object-fit:contain;vertical-align:top}
     .demo-image-caption{margin:0;padding:0 16px 12px;text-align:center;color:#ffffffb3;font-size:12px}
-    @media(max-width:800px){.workspace-grid,.demo-grid{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
+    @media(max-width:800px){.workspace-grid,.demo-grid{grid-template-columns:1fr}.demo-roster-panel{grid-column:auto}.demo-roster-preview{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
     @media(max-width:800px){.demo-comparison,.demo-takeaway{grid-template-columns:1fr}}
     @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:25px}.brand small{font-size:12px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}h1{letter-spacing:-2.6px}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.demo-progress{gap:5px;font-size:11px}.demo-progress-step{padding:8px 10px;font-size:11px}.demo-screen-actions{flex-direction:column-reverse}.demo-library-row{grid-template-columns:45px minmax(0,1fr)}.demo-library-row>.pill{grid-column:2;justify-self:start}.demo-lecture-icon{width:42px;height:42px}.demo-attachment{width:78px;height:82px}.demo-folder-head{padding:12px}.demo-folder-content{padding:0 11px}.demo-course-entry{grid-template-columns:39px minmax(0,1fr) auto}.demo-example-list{grid-template-columns:1fr}.demo-example{grid-template-columns:42px minmax(0,1fr) auto}.demo-example img{width:40px;height:48px}.footer{flex-direction:column}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}.demo-course-entry{animation:none!important}}
   </style>
 </head>
 <body>
@@ -260,6 +268,18 @@
               <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 실전 N제</strong><span class="demo-folder-count">강의 0개</span></div><div class="demo-folder-content"><div class="demo-folder-empty">등록된 강의가 없습니다.</div></div></div>
               <p class="notice">삼차함수 강의는 데모 체험을 위해 등록된 예시 강의입니다. 데모에서는 이 예시 강의만 사용할 수 있습니다.</p>
             </section>
+            <section class="panel demo-roster-panel">
+              <div class="panel-title"><div><h3>수강생 등록 및 이용 범위 설정</h3><p>강사가 학생 이메일을 등록하고, 학생이 이용할 강의 폴더를 지정합니다.</p></div><span class="pill">강사 관리 기능</span></div>
+              <div class="demo-roster-preview">
+                <div class="demo-roster-fields">
+                  <div><label class="field-label" for="demo-roster-email">학생 이메일</label><input class="field" id="demo-roster-email" type="email" value="student@example.com" disabled></div>
+                  <div><div class="field-label">이용 가능한 폴더</div><div class="demo-roster-folders"><label class="folder-access-option"><input type="checkbox" checked disabled><span>2027 개념강의</span></label><label class="folder-access-option"><input type="checkbox" disabled><span>2027 실전 N제</span></label></div></div>
+                  <button class="button primary" type="button" disabled>수강생 등록 / 권한 변경</button>
+                </div>
+                <div class="demo-roster-status"><strong>등록된 학생</strong><br>student@example.com<br>이용 폴더: 2027 개념강의<br><span>학생은 등록된 이메일로 가입하고 인증을 마치면 지정된 강의 폴더를 이용할 수 있습니다.</span></div>
+              </div>
+              <p class="notice">데모 화면에서는 등록 기능이 작동하지 않습니다. 실제 등록과 권한 변경은 강사 로그인 후 이용할 수 있습니다.</p>
+            </section>
           </div>
           <div class="demo-screen-actions"><span></span><button class="button primary" onclick="showDemoScreen('student')">학생 화면으로 이동 →</button></div>
         </div>
@@ -267,7 +287,7 @@
           <div class="demo-grid">
             <section class="panel">
               <div class="panel-title"><div><h3>질문할 강의</h3><p>강사 화면과 같은 폴더에서 강의를 선택하세요.</p></div><span class="pill">학생 화면</span></div>
-              <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 개념강의</strong><span class="demo-folder-count">강의 1개</span></div><div class="demo-folder-content"><button class="demo-course-entry" id="demo-course-cubic" type="button" aria-pressed="false" onclick="selectDemoCourse()"><span class="demo-lecture-icon">∿</span><span><strong>1강. 삼차함수의 비율관계</strong><small>담당 강사 · 강의 프로필 연결됨</small></span><span class="pill">선택</span></button></div></div>
+              <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 개념강의</strong><span class="demo-folder-count">강의 1개</span></div><div class="demo-folder-content"><button class="demo-course-entry" id="demo-course-cubic" type="button" aria-pressed="false" onclick="selectDemoCourse()"><span class="demo-lecture-icon">∿</span><span><strong>1강. 삼차함수의 비율관계</strong><small>담당 강사 · 강의 프로필 연결됨</small></span><span class="pill" id="demo-course-action-label">강의 선택 →</span></button></div></div>
               <div class="demo-folder"><div class="demo-folder-head"><span class="demo-folder-icon">▰</span><strong>2027 실전 N제</strong><span class="demo-folder-count">강의 0개</span></div><div class="demo-folder-content"><div class="demo-folder-empty">선택할 수 있는 강의가 없습니다.</div></div></div>
             </section>
           </div>
@@ -476,7 +496,7 @@
       demoResponseCount=0;demoTypingCount=0;
       document.getElementById('demo-teacher-screen').hidden=false;document.getElementById('demo-student-screen').hidden=true;
       document.getElementById('demo-progress-teacher').className='demo-progress-step active';document.getElementById('demo-progress-student').className='demo-progress-step';
-      document.getElementById('demo-course-cubic').setAttribute('aria-pressed','false');
+      document.getElementById('demo-course-cubic').setAttribute('aria-pressed','false');document.getElementById('demo-course-action-label').textContent='강의 선택 →';
       document.getElementById('demo-chat-section').hidden=true;
       document.getElementById('demo-attachments').innerHTML='';document.getElementById('demo-attachments').hidden=true;
       document.getElementById('demo-question-file').value='';document.getElementById('demo-question-text').value='';
@@ -491,7 +511,7 @@
       if(!teacher)window.scrollTo({top:0,behavior:'smooth'});
     }
     function selectDemoCourse(){
-      demoCourseSelected=true;document.getElementById('demo-course-cubic').setAttribute('aria-pressed','true');
+      demoCourseSelected=true;document.getElementById('demo-course-cubic').setAttribute('aria-pressed','true');document.getElementById('demo-course-action-label').textContent='선택됨 ✓';
       document.getElementById('demo-chat-section').hidden=false;
       document.getElementById('demo-progress-teacher').className='demo-progress-step done';
       document.getElementById('demo-chat-section').scrollIntoView({behavior:'smooth',block:'start'});

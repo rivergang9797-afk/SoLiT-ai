@@ -24,6 +24,7 @@
     .shell{width:min(1160px,calc(100% - 48px));margin:0 auto}
     .topbar{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;background:rgba(246,247,242,.92)}
     .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%}
+    .topbar .topbar-inner{width:min(1040px,calc(100% - 48px))}
     .brand{border:0;background:none;padding:0;text-align:left;color:var(--ink);font-size:25px;font-weight:850;letter-spacing:-1.5px;line-height:1.3}
     .brand small{display:block;margin-top:3px;color:var(--muted);font-size:12px;font-weight:400;letter-spacing:.3px;line-height:1.5}
     .nav-actions{display:flex;align-items:center;gap:10px}
@@ -128,9 +129,25 @@
     .demo-takeaway-card small{font-size:10px;font-weight:850;letter-spacing:1.1px;color:var(--muted)}
     .demo-takeaway-card strong{margin-top:6px;font-size:clamp(18px,2.2vw,25px);line-height:1.3;letter-spacing:-.6px}
     @keyframes takeaway-reveal{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-    .step-answer-text{white-space:pre-wrap}
+    .step-answer-text{white-space:pre-wrap;font-size:14px;line-height:1.85}
+    .step-lecture-callout{margin:15px 0;padding:13px 15px;border-left:3px solid #4b8b6b;border-radius:0 11px 11px 0;background:#f0f6f0}
+    .step-lecture-callout small{display:block;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.5px}
+    .step-lecture-callout strong{display:block;margin-top:3px;font-size:13px;line-height:1.5}
+    .step-lecture-callout p{margin:4px 0 0;color:#52665c;font-size:12px;line-height:1.65}
+    .step-equation{display:block;margin:16px auto 0;padding:14px 12px;border-radius:10px;background:#f4f7f3;text-align:center;overflow-x:auto;color:#203b35;font-size:18px}
+    .step-equation[hidden]{display:none!important}
+    .step-detail{margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+    .step-detail[hidden]{display:none!important}
+    .step-detail strong{display:block;margin-bottom:5px;color:var(--green);font-size:12px}
+    .step-detail p{margin:0;font-size:13px;line-height:1.8}
+    .completed-step{margin:0 0 12px;padding:14px 16px;border:1px solid var(--line);border-radius:13px;background:white}
+    .completed-step .step-answer-text{font-size:13px}
+    .completed-step .step-equation{margin-top:10px;padding:9px;font-size:15px}
+    .tutor-reaction{display:flex;justify-content:flex-end;margin:0 0 10px}
+    .tutor-reaction span{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid #dce8df;border-radius:999px;background:#f4f8f4;color:#476b59;font-size:11px;font-weight:700}
     .demo-answer-solit .chat-head{padding:10px 4px}
     .demo-answer-solit .chat-body{min-height:0;max-height:none;overflow:visible;padding:14px 4px;background:transparent}
+    .demo-answer-solit .bubble.assistant{width:100%;max-width:none}
     .demo-answer-solit .chat-actions{border-radius:12px;padding:10px 4px}
     .problem-list{display:grid;gap:10px}
     .problem-choice{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line);border-radius:13px;background:white;padding:10px 14px;color:var(--ink);transition:.18s ease}
@@ -184,6 +201,12 @@
     .library-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 0;border-bottom:1px solid var(--line)}
     .library-row:last-child{border:0}
     .library-row small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+    .folder-access-list{display:grid;gap:8px;margin:10px 0 14px}
+    .folder-access-option{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcf9;font-size:13px}
+    .folder-access-option input{accent-color:var(--green)}
+    .student-folder{margin:12px 0;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fbfcf9}
+    .student-folder-title{padding:12px 15px;background:#f1f5f0;font-weight:750}
+    .student-folder .library-row{padding:13px 15px}
     .student-course{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px}
     .course-meta{color:var(--muted);font-size:12px;margin-top:5px}
     .footer{border-top:1px solid var(--line);padding:23px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:14px}
@@ -255,7 +278,7 @@
               <div class="demo-quick-examples"><p>예시 문항을 눌러 바로 첨부</p><div class="demo-example-list"><button class="demo-example" type="button" onclick="attachDemoExample('002')"><img src="assets/homework-002.png" alt="문제 예시 002"><span><strong>2013학년도 6월 나형 17번</strong><small>접선과 곡선의 두 번째 교점</small></span><span class="demo-example-attach">첨부 →</span></button><button class="demo-example" type="button" onclick="attachDemoExample('007')"><img src="assets/homework-007.png" alt="문제 예시 007"><span><strong>2008학년도 10월 가형 7번</strong><small>극댓값과 사각형의 넓이</small></span><span class="demo-example-attach">첨부 →</span></button></div></div>
               <div class="demo-composer-box"><div class="demo-attachments" id="demo-attachments" hidden></div><textarea id="demo-question-text" maxlength="1000" placeholder="문제에 대해 질문하세요"></textarea>
                 <div class="demo-composer-bottom"><div><input id="demo-question-file" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden><button class="demo-attach-button" type="button" onclick="document.getElementById('demo-question-file').click()"><span>＋</span>사진 첨부</button><small class="demo-upload-unavailable">최대 2장 · 데모에서는 업로드를 지원하지 않습니다</small></div><button class="demo-send-button" id="demo-send-button" type="submit" disabled>전송 ↑</button></div>
-              </div><p class="notice" style="margin-bottom:0">데모에서는 실시간 답변을 제공하지 않습니다. 답변 비교는 위 예시 문항 중에서 선택해 주세요.</p>
+              </div><p class="notice" style="margin-bottom:0">데모에서는 실시간 답변을 제공하지 않습니다. 위 예시 문항 중 선택하여 답변을 비교해보세요.</p>
             </form>
           </section>
           <div class="demo-screen-actions"><button class="button quiet" onclick="showDemoScreen('teacher')">← 강사 화면</button><span></span></div>
@@ -284,9 +307,10 @@
       <div class="shell">
         <div class="dashboard-top"><div><p class="eyebrow">INSTRUCTOR WORKSPACE</p><h1>강사 페이지</h1><p>직접 업로드한 강의 영상과 자료를 관리합니다.</p></div><button class="button quiet" onclick="logoutTo('teacher-login')">로그아웃</button></div>
         <div class="dashboard-grid">
-          <div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:16px">강의 영상</h3><p>영상 파일을 비공개 저장소에 올립니다. 현재 업로드 후 분석 연결은 준비 중입니다.</p><label class="field-label" for="teacher-lecture-title">강의 제목</label><input class="field" id="teacher-lecture-title" type="text" maxlength="160" placeholder="강의 제목"><label class="upload-zone" for="teacher-lecture-file" style="margin-top:12px"><input id="teacher-lecture-file" type="file" accept="video/mp4,video/quicktime,video/webm"><span class="upload-icon">↑</span><strong>강의 영상 선택</strong><span>MP4, MOV, WebM · 최대 50MB</span></label><div class="file-state" id="teacher-lecture-state" aria-live="polite"></div><button class="button primary" id="teacher-lecture-upload" type="button" style="width:100%;margin-top:14px" onclick="uploadLecture()">영상 업로드</button></div>
+          <div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:16px">강의 영상</h3><p>영상 파일을 비공개 저장소에 올립니다. 현재 업로드 후 분석 연결은 준비 중입니다.</p><label class="field-label" for="teacher-lecture-title">강의 제목</label><input class="field" id="teacher-lecture-title" type="text" maxlength="160" placeholder="강의 제목"><label class="field-label" for="teacher-lecture-folder">강의 폴더</label><input class="field" id="teacher-lecture-folder" type="text" maxlength="100" value="2027 개념강의" placeholder="예: 2027 개념강의"><label class="upload-zone" for="teacher-lecture-file" style="margin-top:12px"><input id="teacher-lecture-file" type="file" accept="video/mp4,video/quicktime,video/webm"><span class="upload-icon">↑</span><strong>강의 영상 선택</strong><span>MP4, MOV, WebM · 최대 50MB</span></label><div class="file-state" id="teacher-lecture-state" aria-live="polite"></div><button class="button primary" id="teacher-lecture-upload" type="button" style="width:100%;margin-top:14px" onclick="uploadLecture()">영상 업로드</button></div>
           <div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:16px">문제풀이 영상 분석</h3><p>여러 문제풀이 영상에서 강사의 공통된 풀이·설명 방식을 추출하는 기능입니다.</p><button class="button" onclick="go('teacher-profile-coming-soon')">서비스 준비 중</button></div>
         </div>
+        <div class="panel library"><div class="panel-title"><div><h3>수강생 등록</h3><p>학생 이메일을 등록하고 이용할 강의 폴더를 지정합니다.</p></div><span class="pill">폴더별 이용 권한</span></div><label class="field-label" for="roster-student-email">학생 이메일</label><input class="field" id="roster-student-email" type="email" placeholder="student@example.com" autocomplete="off"><div class="field-label">이용 가능한 폴더</div><div class="folder-access-list" id="teacher-folder-options"><p class="notice">먼저 강의를 업로드하면 폴더를 선택할 수 있습니다.</p></div><button class="button primary" id="roster-register-button" type="button" onclick="registerStudent()">수강생 등록 / 권한 변경</button><p class="file-state" id="roster-status" role="status" aria-live="polite"></p><div id="teacher-roster-list"><p class="notice">등록된 수강생이 여기에 표시됩니다.</p></div><p class="notice">학생에게 별도 초대 메일은 발송되지 않습니다. 등록한 이메일과 같은 주소로 학생이 가입하고 이메일 인증을 마치면 폴더 이용 권한이 연결됩니다. 등록된 이메일을 다시 입력하면 폴더 권한을 변경할 수 있습니다.</p></div>
         <div class="panel library"><div class="panel-title"><div><h3>내 자료</h3><p>업로드한 강의 영상과 처리 상태</p></div><span class="pill">개인 자료</span></div><div id="teacher-lecture-list"><p class="notice">업로드한 영상이 여기에 표시됩니다.</p></div><p class="notice">업로드는 비공개 저장소에 보관됩니다. 현재 자동 전사·판서 분석은 아직 연결되지 않아 상태가 ‘분석 대기’로 표시됩니다. 강사 전체 프로필은 서비스 준비 중입니다.</p></div>
       </div>
     </section>
@@ -303,7 +327,7 @@
           <button class="auth-switch" id="student-auth-toggle" type="button" onclick="toggleAuthMode('student')">처음이신가요? 회원가입</button>
           <button class="auth-switch auth-resend" id="student-auth-resend" type="button" onclick="resendConfirmation('student')" hidden>인증 메일 다시 보내기</button>
           <p class="auth-status" id="student-auth-status" role="status" aria-live="polite"></p>
-          <p class="demo-login-note">회원가입 후 이메일 인증 링크를 눌러야 로그인할 수 있습니다. 강사와 학생 계정은 역할별로 구분됩니다.</p>
+          <p class="demo-login-note">강사가 등록한 이메일로 회원가입하고 인증을 마치면 지정된 강의 폴더를 이용할 수 있습니다.</p>
         </form>
       </div>
     </section>
@@ -322,7 +346,7 @@
     <section class="page" id="student-dashboard">
       <div class="shell">
         <div class="dashboard-top"><div><p class="eyebrow">STUDENT WORKSPACE</p><h1>내 강의</h1><p>수강 등록된 강의가 여기에 표시됩니다.</p></div><button class="button quiet" onclick="logoutTo('student-login')">로그아웃</button></div>
-        <div class="panel" style="margin-bottom:16px"><h3>등록된 강의가 없습니다.</h3><p class="course-meta">강사에게 수강 등록을 요청하면 이곳에서 강의를 확인할 수 있습니다.</p></div>
+        <div class="panel" style="margin-bottom:16px"><div class="panel-title"><div><h3>수강 중인 강의</h3><p>강사가 지정한 폴더의 강의만 표시됩니다.</p></div></div><div id="student-course-list"><p class="notice">강의 목록을 불러오는 중입니다.</p></div></div>
         <div class="panel" style="margin:16px 0 76px"><div class="panel-title"><div><h3>질문하기</h3><p>문제 사진과 질문 내용을 올릴 수 있습니다.</p></div></div><div class="dashboard-grid" style="padding:0"><div class="upload-card"><span class="pill">LECTURE PROFILE</span><h3 style="margin-top:15px">강의별 질문</h3><p>수강 강의가 연결되면 강의 내용에 기반한 답변을 이용할 수 있습니다.</p><button class="button primary" onclick="go('student-lecture')">질문 자료 올리기</button></div><div class="upload-card"><span class="pill">TEACHER PROFILE</span><h3 style="margin-top:15px">강사 전체 질문</h3><p>강사의 전반적인 문제 접근과 설명 방식을 활용하는 기능입니다.</p><button class="button" onclick="go('teacher-profile-coming-soon')">서비스 준비 중</button></div></div></div>
       </div>
     </section>
@@ -330,7 +354,7 @@
     <section class="page" id="student-lecture">
       <div class="shell workspace">
         <div class="section-head"><div><p class="eyebrow">STUDENT QUESTIONS</p><h2>질문 자료 올리기</h2><p>문제 사진과 질문 내용을 비공개로 저장합니다.</p></div><button class="button quiet" onclick="go('student-dashboard')">← 내 강의</button></div>
-        <form class="panel" id="student-question-form" onsubmit="submitStudentQuestion(event)"><div class="panel-title"><div><h3>새 질문</h3><p>강의가 연결되기 전에도 질문 자료를 저장할 수 있습니다.</p></div><span class="pill">내 질문</span></div><label class="field-label" for="student-question-lecture">강의명 (선택)</label><input class="field" id="student-question-lecture" type="text" maxlength="160" placeholder="강의명"><label class="field-label" for="student-question-text">질문 (선택)</label><textarea class="field" id="student-question-text" maxlength="3000" placeholder="어느 부분이 막혔는지 적어 주세요."></textarea><label class="upload-zone" for="student-question-file" style="margin-top:12px"><input id="student-question-file" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"><span class="upload-icon">↑</span><strong>문제 사진 또는 PDF 선택</strong><span>JPG, PNG, WebP, PDF · 최대 10MB</span></label><div class="file-state" id="student-question-state" aria-live="polite"></div><button class="button primary" id="student-question-submit" type="submit" style="width:100%;margin-top:14px">질문 제출</button></form>
+        <form class="panel" id="student-question-form" onsubmit="submitStudentQuestion(event)"><div class="panel-title"><div><h3>새 질문</h3><p>질문을 올릴 강의를 선택해 주세요.</p></div><span class="pill">내 질문</span></div><label class="field-label" for="student-question-lecture">강의</label><select class="field" id="student-question-lecture"><option value="">등록된 강의 선택</option></select><label class="field-label" for="student-question-text">질문 (선택)</label><textarea class="field" id="student-question-text" maxlength="3000" placeholder="어느 부분이 막혔는지 적어 주세요."></textarea><label class="upload-zone" for="student-question-file" style="margin-top:12px"><input id="student-question-file" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"><span class="upload-icon">↑</span><strong>문제 사진 또는 PDF 선택</strong><span>JPG, PNG, WebP, PDF · 최대 10MB</span></label><div class="file-state" id="student-question-state" aria-live="polite"></div><button class="button primary" id="student-question-submit" type="submit" style="width:100%;margin-top:14px">질문 제출</button></form>
       </div>
     </section>
 
@@ -364,7 +388,9 @@
       '002': [
         {
           title:'접점과 변곡점으로 교점 x좌표 찾기',
-          text:'접점 A의 x좌표가 1이고, 삼차함수의 변곡점 x좌표는 0입니다. 강의에서 배운 “세 교점 x좌표의 합 = 변곡점 x좌표의 3배”를 적용해 볼게요.',
+          lectureConcept:'세 교점 x좌표의 합 = 변곡점 x좌표의 3배',
+          lectureReason:'접점 A는 중근이므로 x좌표 1을 두 번 세고, 변곡점 x좌표는 0입니다.',
+          text:'나머지 교점의 x좌표를 x_B라 두면, 세 교점의 x좌표 합을 이용해 바로 구할 수 있어요.',
           equation:'1+1+x_{B}=3\\times0 \\implies x_{B}=-2',
           detail:'접선과 곡선의 교점에서 접점 A는 중근이므로 x좌표 1을 두 번 셉니다. 나머지 교점 B의 x좌표를 x_B라 놓으면 세 x좌표의 합은 1+1+x_B입니다. 변곡점 x좌표가 0이므로 합은 3×0=0이고, 따라서 x_B=-2입니다.'
         },
@@ -378,7 +404,9 @@
       '007': [
         {
           title:'1:√3 관계로 x절편 찾기',
-          text:'원점 대칭인 삼차함수의 변곡점은 원점입니다. x축은 변곡점을 지나고 곡선과 세 점에서 만나므로 강의의 1:√3 관계를 적용할 수 있어요.',
+          lectureConcept:'원점 대칭 삼차함수에서 ODₓ : OBₓ = 1 : √3',
+          lectureReason:'변곡점 O가 원점이고 D가 극점이므로, 강의에서 배운 비율관계를 적용할 수 있습니다.',
+          text:'ODₓ가 1/2이므로 이 비율을 이용해 바깥쪽 x절편 B의 x좌표를 구하겠습니다.',
           equation:'OD_x:OB_x=1:\\sqrt{3} \\implies x_{B}=\\frac{\\sqrt{3}}{2}',
           detail:'이 관계에서 1에 해당하는 길이는 변곡점 O부터 x축과 평행한 접선의 접점 D까지입니다. 그 x방향 거리는 1/2이므로, 바깥쪽 x절편 B까지의 거리는 √3/2입니다. 원점 대칭으로 A의 x좌표는 -√3/2입니다.'
         },
@@ -400,6 +428,7 @@
     let activeTarget = null;
     let activeHistory = [];
     let activeCurrentMessage = '';
+    let activeCurrentExpanded = false;
     let toastTimer;
     let previousPage = 'home';
     let demoAttachments=[];
@@ -512,7 +541,7 @@
       if(sample)responseHost.scrollIntoView({behavior:'smooth',block:'start'});
     }
     function showDemoComparison(problemId,host){
-      activeProblem=problemId;activeStep=0;activeTarget=`${host.id}-solit`;activeHistory=[];activeCurrentMessage='';
+      activeProblem=problemId;activeStep=0;activeTarget=`${host.id}-solit`;activeHistory=[];activeCurrentMessage='';activeCurrentExpanded=false;
       const generalId=`${host.id}-general`;
       host.innerHTML=`<div class="demo-comparison"><section class="demo-comparison-card solit"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 내용 반영</span><strong>SoLiT 강의 기반 풀이</strong><small>강의에서 배운 개념을 적용해 단계별로 설명</small></div><div class="demo-comparison-content"><div class="demo-answer-solit" id="${activeTarget}"></div></div></section><section class="demo-comparison-card general"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 미반영</span><strong>일반 LLM 풀이</strong><small>강의가 반영되지 않은 일반 AI 모델의 답변</small></div><div class="demo-comparison-content"><div class="demo-general-answer" id="${generalId}"></div></div></section></div><p class="demo-comparison-note">실제 비교 실험 결과입니다.</p><div class="demo-takeaway" id="${host.id}-takeaway" hidden aria-live="polite"><div class="demo-takeaway-card"><small>강의 프로필 기반</small><strong class="demo-takeaway-solit"></strong></div><div class="demo-takeaway-card general"><small>일반 LLM</small><strong class="demo-takeaway-general"></strong></div></div>`;
       showStep(activeTarget,0);
@@ -569,7 +598,8 @@
       if(profileError||!profile){renderPage(gate.login);setAuthStatus(gate.role,'계정 정보를 확인할 수 없습니다. 잠시 후 다시 로그인해 주세요.','error');return}
       if(profile.role!==gate.role){renderPage(gate.login);setAuthStatus(gate.role,'이 계정은 해당 페이지에 접근할 수 있는 역할이 아닙니다.','error');return}
       renderPage(id);
-      if(id==='teacher-dashboard')loadTeacherLectures();
+      if(id==='teacher-dashboard')loadTeacherWorkspace();
+      if(id==='student-dashboard'||id==='student-lecture')loadStudentWorkspace();
     }
     async function logoutTo(id){
       if(authClient){const {error}=await authClient.auth.signOut();if(error)toast('로그아웃에 실패했습니다. 다시 시도해 주세요.')}
@@ -689,7 +719,7 @@
       const {data:profile,error:profileError}=await authClient.from('profiles').select('role').eq('id',user.id).single();
       if(profileError||!profile)throw new Error('계정 프로필을 찾지 못했습니다. Supabase SQL 설정을 확인해 주세요.');
       if(profile.role!==requestedRole){await authClient.auth.signOut();throw new Error(`이 계정은 ${profile.role==='teacher'?'강사':'학생'} 계정입니다. 해당 로그인 화면을 이용해 주세요.`)}
-      setAuthStatus(requestedRole,'로그인되었습니다.','success');renderPage(requestedRole==='teacher'?'teacher-dashboard':'student-dashboard');if(requestedRole==='teacher')loadTeacherLectures();
+      setAuthStatus(requestedRole,'로그인되었습니다.','success');renderPage(requestedRole==='teacher'?'teacher-dashboard':'student-dashboard');if(requestedRole==='teacher')loadTeacherWorkspace();else loadStudentWorkspace();
     }
     function toast(message){
       const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');
@@ -719,25 +749,48 @@
       clearTimeout(activeTypewriterTimer);
       demoTypingCount++;
       const text=document.getElementById('step-answer-text');const equation=document.getElementById('step-equation');const buttons=host.querySelectorAll('.chat-actions button');
+      const detail=document.getElementById('step-detail');
+      const finish=()=>{buttons.forEach(button=>button.disabled=false);scrollDemoResponseToStart(host.closest('.demo-answer-host'));demoTypingCount=Math.max(0,demoTypingCount-1)};
+      if(activeCurrentExpanded){
+        text.textContent=body;equation.hidden=false;typesetMath(equation);
+        const detailText=detail?.querySelector('p');
+        if(!detail||!detailText){finish();return}
+        detail.hidden=false;const chars=Array.from(steps[activeProblem][activeStep].detail);let offset=0;
+        const writeDetail=()=>{
+          if(!detailText.isConnected){demoTypingCount=Math.max(0,demoTypingCount-1);return}
+          detailText.textContent+=chars.slice(offset,offset+2).join('');offset+=2;
+          if(offset<chars.length){activeTypewriterTimer=setTimeout(writeDetail,13);return}
+          typesetMath(detail);finish();
+        };
+        activeTypewriterTimer=setTimeout(writeDetail,80);return;
+      }
       const chars=Array.from(body);let offset=0;
       const writeChunk=()=>{
         if(!text.isConnected){demoTypingCount=Math.max(0,demoTypingCount-1);return}
         text.textContent+=chars.slice(offset,offset+2).join('');offset+=2;
         if(offset<chars.length){activeTypewriterTimer=setTimeout(writeChunk,13);return}
-        equation.hidden=false;typesetMath(equation);buttons.forEach(button=>button.disabled=false);scrollDemoResponseToStart(host.closest('.demo-answer-host'));demoTypingCount=Math.max(0,demoTypingCount-1);
+        equation.hidden=false;typesetMath(equation);
+        finish();
       };
       activeTypewriterTimer=setTimeout(writeChunk,80);
     }
     function escapeHTML(value){return String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
     function typesetMath(element){if(window.MathJax?.typesetPromise)window.MathJax.typesetPromise([element]).catch(error=>console.error('Math rendering failed:',error))}
     function clearMath(element){if(window.MathJax?.typesetClear)window.MathJax.typesetClear([element])}
+    function renderTutorHistory(){
+      return activeHistory.map(item=>{
+        if(item.kind==='reaction')return `<div class="tutor-reaction"><span>${item.text==='여기까지 이해했어요'?'✓':'↳'} ${escapeHTML(item.text)}</span></div>`;
+        return `<article class="completed-step"><div class="step-label">STEP ${item.number} · ${escapeHTML(item.title)}</div>${item.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(item.lectureConcept)}</strong><p>${escapeHTML(item.lectureReason)}</p></div>`:''}<div class="step-answer-text">${escapeHTML(item.text)}</div><div class="step-equation">\\(${escapeHTML(item.equation)}\\)</div>${item.detail?`<div class="step-detail"><strong>조금 더 풀어보면</strong><p>${escapeHTML(item.detail)}</p></div>`:''}</article>`;
+      }).join('');
+    }
     function showStep(target,stepIndex,expanded=false){
       const host=document.getElementById(target);const list=steps[activeProblem];const step=list[stepIndex];
-      const body=expanded?step.detail:step.text;
+      const body=step.text;activeCurrentExpanded=expanded;
       activeCurrentMessage=`STEP ${stepIndex+1} · ${step.title}\n${body}\n\\(${step.equation}\\)`;
-      const history=activeHistory.map(item=>`<div class="bubble ${item.role}">${escapeHTML(item.text)}</div>`).join('');
+      const history=renderTutorHistory();
+      const lectureCallout=step.lectureConcept?`<div class="step-lecture-callout"><small>강의에서 가져온 판단</small><strong>${escapeHTML(step.lectureConcept)}</strong><p>${escapeHTML(step.lectureReason)}</p></div>`:'';
       clearMath(host);
-      host.innerHTML=`<div class="chat-head"><div><strong>${activeProblem==='002'?'2013학년도 6월 나형 17번':'2008학년도 10월 가형 7번'}</strong><p>풀이 ${stepIndex+1} / ${list.length} · ${escapeHTML(step.title)}</p></div><span class="pill">${expanded?'보충 설명':'진행 중'}</span></div><div class="chat-body" id="chat-messages">${history}<div class="bubble assistant"><div class="step-label">STEP ${stepIndex+1} · ${escapeHTML(step.title)}</div><div class="step-answer-text" id="step-answer-text"></div><span class="math" id="step-equation" hidden>\\(${escapeHTML(step.equation)}\\)</span></div></div><div class="chat-actions"><button class="button primary" disabled onclick="advanceStep()">여기까지 이해했어요</button><button class="button" disabled onclick="expandStep()">이 부분 잘 모르겠어요</button></div>`;
+      host.innerHTML=`<div class="chat-head"><div><strong>${activeProblem==='002'?'2013학년도 6월 나형 17번':'2008학년도 10월 가형 7번'}</strong><p>풀이 ${stepIndex+1} / ${list.length} · ${escapeHTML(step.title)}</p></div><span class="pill">${expanded?'보충 설명':'진행 중'}</span></div><div class="chat-body" id="chat-messages">${history}<article class="bubble assistant"><div class="step-label">STEP ${stepIndex+1} · ${escapeHTML(step.title)}</div>${lectureCallout}<div class="step-answer-text" id="step-answer-text"></div><div class="step-equation" id="step-equation" hidden>\\(${escapeHTML(step.equation)}\\)</div>${expanded?'<div class="step-detail" id="step-detail" hidden><strong>조금 더 풀어보면</strong><p></p></div>':''}</article>${expanded?'<div class="tutor-reaction"><span>↳ 이 부분 잘 모르겠어요</span></div>':''}</div><div class="chat-actions"><button class="button primary" disabled onclick="advanceStep()">여기까지 이해했어요</button><button class="button" disabled onclick="expandStep()">이 부분 잘 모르겠어요</button></div>`;
       typesetMath(host);
       typeStepAnswer(body,host);
       const chatBody=document.getElementById('chat-messages');chatBody.scrollTop=chatBody.scrollHeight;
@@ -749,14 +802,16 @@
       document.getElementById(target).scrollIntoView({behavior:'smooth',block:'start'});
     }
     function advanceStep(){
-      activeHistory.push({role:'assistant',text:activeCurrentMessage});
-      activeHistory.push({role:'user',text:'여기까지 이해했어요'});
+      const step=steps[activeProblem][activeStep];
+      activeHistory.push({kind:'step',number:activeStep+1,title:step.title,lectureConcept:step.lectureConcept,lectureReason:step.lectureReason,text:step.text,equation:step.equation,detail:activeCurrentExpanded?step.detail:null});
+      if(activeCurrentExpanded)activeHistory.push({kind:'reaction',text:'이 부분 잘 모르겠어요'});
+      activeHistory.push({kind:'reaction',text:'여기까지 이해했어요'});
       if(activeStep<steps[activeProblem].length-1){
         activeStep++;showStep(activeTarget,activeStep);
       }else{
         const chat=document.getElementById(activeTarget);
         clearMath(chat);
-        const history=activeHistory.map(item=>`<div class="bubble ${item.role}">${escapeHTML(item.text)}</div>`).join('');
+        const history=renderTutorHistory();
         chat.innerHTML=`<div class="chat-head"><div><strong>풀이 완료</strong><p>강의 개념을 문제에 적용했습니다.</p></div><span class="pill"><i class="dot"></i>완료</span></div><div class="chat-body">${history}<div class="bubble assistant"><div class="step-label">FINAL ANSWER</div>정답은 <strong>${activeProblem==='002'?'④ 3√5':'① 1'}</strong>입니다.</div></div>`;
         typesetMath(chat);
         const responseHost=chat.closest('.demo-answer-host');
@@ -773,8 +828,6 @@
       }
     }
     function expandStep(){
-      activeHistory.push({role:'assistant',text:activeCurrentMessage});
-      activeHistory.push({role:'user',text:'이 부분 잘 모르겠어요'});
       showStep(activeTarget,activeStep,true);
     }
     document.getElementById('teacher-login-form').addEventListener('submit',submitAuth);
@@ -822,9 +875,11 @@
     }
     async function uploadLecture(){
       const title=document.getElementById('teacher-lecture-title').value.trim();
+      const folderName=document.getElementById('teacher-lecture-folder').value.trim();
       const file=document.getElementById('teacher-lecture-file').files[0];
       const state=document.getElementById('teacher-lecture-state');const button=document.getElementById('teacher-lecture-upload');
       if(!title){state.textContent='강의 제목을 입력해 주세요.';return}
+      if(!folderName){state.textContent='강의가 들어갈 폴더 이름을 입력해 주세요.';return}
       if(!file){state.textContent='업로드할 영상 파일을 선택해 주세요.';return}
       const mime=inferredMime(file);if(!['video/mp4','video/quicktime','video/webm'].includes(mime)){state.textContent='MP4, MOV, WebM 형식만 업로드할 수 있습니다.';return}
       if(file.size>50*1024*1024){state.textContent='영상은 50MB 이하 파일만 업로드할 수 있습니다.';return}
@@ -833,20 +888,66 @@
       try{
         const user=await currentUserForUpload('teacher');const id=crypto.randomUUID();path=`${user.id}/${id}/${safeFilename(file.name)}`;
         await uploadResumable('lecture-videos',path,file,mime,percent=>{state.textContent=`비공개 저장소에 업로드 중… ${percent}%`});
-        const {error:rowError}=await authClient.from('lectures').insert({id,teacher_id:user.id,title,storage_path:path,original_filename:file.name,mime_type:mime,size_bytes:file.size,status:'uploaded'});
+        const {error:rowError}=await authClient.from('lectures').insert({id,teacher_id:user.id,title,folder_name:folderName,storage_path:path,original_filename:file.name,mime_type:mime,size_bytes:file.size,status:'uploaded'});
         if(rowError){await authClient.storage.from('lecture-videos').remove([path]);path=null;throw rowError}
         state.textContent='업로드 완료 · 분석 대기';document.getElementById('teacher-lecture-title').value='';document.getElementById('teacher-lecture-file').value='';
-        await loadTeacherLectures();
+        await loadTeacherWorkspace();
       }catch(error){state.textContent=`업로드에 실패했습니다: ${error?.message||'잠시 후 다시 시도해 주세요.'}`;}
       finally{button.disabled=false}
     }
     async function loadTeacherLectures(){
       const host=document.getElementById('teacher-lecture-list');if(!host||!authClient)return;
       const {data:{user},error:userError}=await authClient.auth.getUser();if(userError||!user)return;
-      const {data,error}=await authClient.from('lectures').select('title,original_filename,status,created_at').eq('teacher_id',user.id).order('created_at',{ascending:false}).limit(20);
+      const {data,error}=await authClient.from('lectures').select('title,folder_name,original_filename,status,created_at').eq('teacher_id',user.id).order('created_at',{ascending:false}).limit(100);
       if(error){host.innerHTML='<p class="notice">업로드 자료를 불러오지 못했습니다.</p>';return}
-      if(!data?.length){host.innerHTML='<p class="notice">업로드한 영상이 여기에 표시됩니다.</p>';return}
-      host.innerHTML=data.map(item=>`<div class="library-row"><span><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.original_filename)} · ${new Date(item.created_at).toLocaleDateString('ko-KR')}</small></span><span class="pill">${item.status==='ready'?'분석 완료':item.status==='processing'?'분석 중':'분석 대기'}</span></div>`).join('');
+      if(!data?.length){host.innerHTML='<p class="notice">업로드한 영상이 여기에 표시됩니다.</p>';return []}
+      host.innerHTML=data.map(item=>`<div class="library-row"><span><small>${escapeHTML(item.folder_name||'기본 폴더')}</small><strong>${escapeHTML(item.title)}</strong><small>${escapeHTML(item.original_filename)} · ${new Date(item.created_at).toLocaleDateString('ko-KR')}</small></span><span class="pill">${item.status==='ready'?'분석 완료':item.status==='processing'?'분석 중':'분석 대기'}</span></div>`).join('');
+      return data;
+    }
+    async function loadTeacherWorkspace(){
+      const lectures=await loadTeacherLectures();if(!lectures)return;
+      const folders=[...new Set(lectures.map(item=>(item.folder_name||'기본 폴더').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
+      const options=document.getElementById('teacher-folder-options');
+      if(options)options.innerHTML=folders.length?folders.map((folder,index)=>`<label class="folder-access-option"><input type="checkbox" name="roster-folder" value="${escapeHTML(folder)}" ${index===0?'checked':''}><span>${escapeHTML(folder)}</span></label>`).join(''):'<p class="notice">먼저 강의를 업로드하면 폴더를 선택할 수 있습니다.</p>';
+      await loadTeacherRoster();
+    }
+    async function registerStudent(){
+      const email=document.getElementById('roster-student-email').value.trim().toLowerCase();
+      const folders=[...document.querySelectorAll('input[name="roster-folder"]:checked')].map(input=>input.value);
+      const status=document.getElementById('roster-status');const button=document.getElementById('roster-register-button');
+      if(!email){status.textContent='학생 이메일을 입력해 주세요.';return}
+      if(!folders.length){status.textContent='이용 권한을 줄 폴더를 하나 이상 선택해 주세요.';return}
+      button.disabled=true;status.textContent='수강생을 등록하고 있습니다…';
+      try{
+        const {error}=await authClient.rpc('register_student_by_email',{p_student_email:email,p_folder_names:folders});
+        if(error)throw error;
+        status.textContent='등록 완료 · 학생이 같은 이메일로 가입하고 인증한 뒤 로그인하면 지정된 폴더를 이용할 수 있습니다.';
+        document.getElementById('roster-student-email').value='';await loadTeacherRoster();
+      }catch(error){status.textContent=`등록하지 못했습니다: ${error?.message||'잠시 후 다시 시도해 주세요.'}`}
+      finally{button.disabled=false}
+    }
+    async function loadTeacherRoster(){
+      const host=document.getElementById('teacher-roster-list');if(!host||!authClient)return;
+      const {data,error}=await authClient.from('teacher_students').select('student_email,student_id,folder_names,created_at').order('created_at',{ascending:false});
+      if(error){host.innerHTML='<p class="notice">수강생 목록을 불러오지 못했습니다. Supabase SQL 설정을 확인해 주세요.</p>';return}
+      if(!data?.length){host.innerHTML='<p class="notice">등록된 수강생이 없습니다.</p>';return}
+      host.innerHTML=data.map(item=>`<div class="library-row"><span><strong>${escapeHTML(item.student_email)}</strong><small>이용 폴더: ${escapeHTML((item.folder_names||[]).join(', '))}</small></span><span class="pill">${item.student_id?'이용 중':'가입·인증 대기'}</span></div>`).join('');
+    }
+    async function loadStudentWorkspace(){
+      const host=document.getElementById('student-course-list');if(!authClient)return;
+      try{
+        await authClient.rpc('claim_pending_student_enrollments');
+        const {data:lectures,error}=await authClient.from('lectures').select('id,title,folder_name,teacher_id,status,created_at').order('created_at',{ascending:false}).limit(100);
+        if(error)throw error;
+        if(!lectures?.length){if(host)host.innerHTML='<p class="notice">이용할 수 있는 강의가 아직 없습니다. 강사에게 이메일 등록을 요청해 주세요.</p>';fillStudentLectureOptions([]);return}
+        const grouped=new Map();for(const item of lectures){const key=`${item.teacher_id}\u0000${item.folder_name||'기본 폴더'}`;if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(item)}
+        if(host)host.innerHTML=[...grouped.entries()].map(([key,items])=>{const folder=key.split('\u0000')[1];return `<section class="student-folder"><div class="student-folder-title">${escapeHTML(folder)}</div>${items.map(item=>`<div class="library-row"><span><strong>${escapeHTML(item.title)}</strong><small>${item.status==='ready'?'강의 프로필 준비 완료':'강의 자료 등록됨'}</small></span><span class="pill">이용 가능</span></div>`).join('')}</section>`}).join('');
+        fillStudentLectureOptions(lectures);
+      }catch(error){if(host)host.innerHTML=`<p class="notice">강의 목록을 불러오지 못했습니다: ${escapeHTML(error?.message||'Supabase 설정을 확인해 주세요.')}</p>`}
+    }
+    function fillStudentLectureOptions(lectures){
+      const select=document.getElementById('student-question-lecture');if(!select)return;
+      select.innerHTML='<option value="">등록된 강의 선택</option>'+lectures.map(item=>`<option value="${escapeHTML(item.id)}">${escapeHTML(item.folder_name||'기본 폴더')} · ${escapeHTML(item.title)}</option>`).join('');
     }
     async function submitStudentQuestion(event){
       event.preventDefault();const text=document.getElementById('student-question-text').value.trim();const file=document.getElementById('student-question-file').files[0];
@@ -857,8 +958,9 @@
       try{
         const user=await currentUserForUpload('student');const id=crypto.randomUUID();
         if(file){path=`${user.id}/${id}/${safeFilename(file.name)}`;await uploadResumable('question-images',path,file,mime,percent=>{state.textContent=`문제 파일 업로드 중… ${percent}%`})}
-        const lectureTitle=document.getElementById('student-question-lecture').value.trim();
-        const {error}=await authClient.from('student_questions').insert({id,student_id:user.id,lecture_title_snapshot:lectureTitle,question_text:text,image_path:path,original_filename:file?.name||null,mime_type:mime,size_bytes:file?.size||null,status:'submitted'});
+        const lectureSelect=document.getElementById('student-question-lecture');const lectureId=lectureSelect.value;const lectureTitle=lectureSelect.selectedOptions[0]?.textContent||'';
+        if(!lectureId){if(path)await authClient.storage.from('question-images').remove([path]);throw new Error('질문할 강의를 선택해 주세요.')}
+        const {error}=await authClient.from('student_questions').insert({id,student_id:user.id,lecture_id,lecture_title_snapshot:lectureTitle,question_text:text,image_path:path,original_filename:file?.name||null,mime_type:mime,size_bytes:file?.size||null,status:'submitted'});
         if(error){if(path)await authClient.storage.from('question-images').remove([path]);throw error}
         state.textContent='질문이 비공개로 저장됐습니다. 현재 자동 해설 연결은 준비 중입니다.';document.getElementById('student-question-lecture').value='';document.getElementById('student-question-text').value='';document.getElementById('student-question-file').value='';
       }catch(error){state.textContent=`질문 저장에 실패했습니다: ${error?.message||'잠시 후 다시 시도해 주세요.'}`}

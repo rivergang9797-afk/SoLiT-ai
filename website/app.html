@@ -103,7 +103,7 @@
     .demo-course-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px;border:1px solid #8cad95;border-radius:14px;background:#f5f8f4;color:var(--ink);text-align:left}
     .demo-course-option strong{display:block}.demo-course-option small{display:block;color:var(--muted);margin-top:4px}
     .demo-chat-shell{margin-top:18px;overflow:hidden;padding:0}
-    .demo-chat-messages{padding:18px 22px;min-height:0;max-height:420px;overflow:auto;background:#fbfcf9}
+    .demo-chat-messages{padding:18px 22px;min-height:0;background:#fbfcf9}
     .demo-composer{padding:14px;background:white;border-top:1px solid var(--line)}
     .demo-composer-box{border:1px solid #d6dfd6;border-radius:18px;padding:12px;background:white;box-shadow:0 3px 14px #17392b0a}
     .demo-attachments{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
@@ -134,7 +134,7 @@
     .demo-comparison-title strong{display:block;margin-top:7px;font-size:17px;line-height:1.3;letter-spacing:-.35px}.demo-comparison-title small{display:block;margin-top:4px;color:var(--muted);font-size:11px}
     .demo-comparison-kicker{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;background:#e1eee5;color:#245b49;font-size:9px;font-weight:850;letter-spacing:.8px}
     .demo-comparison-card.general .demo-comparison-title{background:#f5f3ee}.demo-comparison-card.general .demo-comparison-kicker{background:#e9e5dd;color:#655638}
-    .demo-comparison-content{padding:12px;max-height:min(65vh,520px);overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+    .demo-comparison-content{padding:12px}
     .demo-general-answer{font-size:13px;line-height:1.8;white-space:pre-wrap}
     .demo-comparison-note{margin:8px 2px 2px;color:var(--muted);font-size:11px;line-height:1.6}
     .demo-takeaway{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 18px;animation:takeaway-reveal .45s ease-out both}
@@ -293,7 +293,7 @@
             <div class="chat-head"><div><strong>삼차함수의 비율관계</strong><p>예시 문항을 선택하면 두 가지 풀이를 비교할 수 있습니다.</p></div><span class="pill"><i class="dot"></i>강의 기반</span></div>
             <div class="demo-chat-messages" id="demo-chat-messages" aria-live="polite"><div class="chat-placeholder" id="demo-chat-placeholder" style="padding:12px 15px">선택한 예시 문항과 답변이 여기에 표시됩니다.</div></div>
             <form class="demo-composer" id="demo-question-form" onsubmit="sendDemoQuestion(event)">
-              <div class="demo-quick-examples"><p>예시 문항을 눌러 바로 첨부</p><div class="demo-example-list"><button class="demo-example" type="button" onclick="attachDemoExample('002')"><img src="assets/homework-002.png" alt="문제 예시 002"><span><strong>접선과 곡선의 두 번째 교점</strong><small>예시 질문 · 삼차함수의 비율관계</small></span><span class="demo-example-attach">첨부 →</span></button><button class="demo-example" type="button" onclick="attachDemoExample('007')"><img src="assets/homework-007.png" alt="문제 예시 007"><span><strong>극댓값과 사각형의 넓이</strong><small>예시 질문 · 1:√3 관계</small></span><span class="demo-example-attach">첨부 →</span></button></div></div>
+              <div class="demo-quick-examples"><p>예시 문항을 눌러 바로 첨부</p><div class="demo-example-list"><button class="demo-example" type="button" onclick="attachDemoExample('002')"><img src="assets/homework-002.png" alt="문제 예시 002"><span><strong>2013학년도 6월 나형 17번</strong><small>접선과 곡선의 두 번째 교점</small></span><span class="demo-example-attach">첨부 →</span></button><button class="demo-example" type="button" onclick="attachDemoExample('007')"><img src="assets/homework-007.png" alt="문제 예시 007"><span><strong>2008학년도 10월 가형 7번</strong><small>극댓값과 사각형의 넓이</small></span><span class="demo-example-attach">첨부 →</span></button></div></div>
               <div class="demo-composer-box"><div class="demo-attachments" id="demo-attachments" hidden></div><textarea id="demo-question-text" maxlength="1000" placeholder="문제에 대해 질문하세요"></textarea>
                 <div class="demo-composer-bottom"><div><input id="demo-question-file" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden><button class="demo-attach-button" type="button" onclick="document.getElementById('demo-question-file').click()"><span>＋</span>사진 첨부</button><small class="demo-upload-unavailable">최대 2장 · 데모에서는 업로드를 지원하지 않습니다</small></div><button class="demo-send-button" id="demo-send-button" type="submit" disabled>전송 ↑</button></div>
               </div><p class="notice" style="margin-bottom:0">데모에서는 실시간 답변을 제공하지 않습니다. 답변 비교는 위 예시 문항 중에서 선택해 주세요.</p>
@@ -549,12 +549,13 @@
       }
       demoAttachments.forEach(item=>{if(item.file&&item.url)demoUsedObjectUrls.push(item.url)});demoAttachments=[];
       document.getElementById('demo-attachments').innerHTML='';document.getElementById('demo-attachments').hidden=true;
-      document.getElementById('demo-question-text').value='';document.getElementById('demo-send-button').disabled=true;thread.scrollTop=thread.scrollHeight;
+      document.getElementById('demo-question-text').value='';document.getElementById('demo-send-button').disabled=true;
+      if(sample)responseHost.scrollIntoView({behavior:'smooth',block:'start'});
     }
     function showDemoComparison(problemId,host){
       activeProblem=problemId;activeStep=0;activeTarget=`${host.id}-solit`;activeHistory=[];activeCurrentMessage='';
       const generalId=`${host.id}-general`;
-      host.innerHTML=`<div class="demo-takeaway" id="${host.id}-takeaway" hidden aria-live="polite"><div class="demo-takeaway-card"><small>강의 프로필 기반</small><strong class="demo-takeaway-solit"></strong></div><div class="demo-takeaway-card general"><small>일반 LLM</small><strong class="demo-takeaway-general"></strong></div></div><div class="demo-comparison"><section class="demo-comparison-card solit"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 내용 반영</span><strong>SoLiT 강의 기반 풀이</strong><small>강의에서 배운 개념을 적용해 단계별로 설명</small></div><div class="demo-comparison-content"><div class="demo-answer-solit" id="${activeTarget}"></div></div></section><section class="demo-comparison-card general"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 미반영</span><strong>일반 LLM 풀이</strong><small>강의가 반영되지 않은 일반 AI 모델의 답변</small></div><div class="demo-comparison-content"><div class="demo-general-answer" id="${generalId}"></div></div></section></div><p class="demo-comparison-note">같은 문제를 두 방식으로 풀어본 실제 실험 결과입니다.</p>`;
+      host.innerHTML=`<div class="demo-comparison"><section class="demo-comparison-card solit"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 내용 반영</span><strong>SoLiT 강의 기반 풀이</strong><small>강의에서 배운 개념을 적용해 단계별로 설명</small></div><div class="demo-comparison-content"><div class="demo-answer-solit" id="${activeTarget}"></div></div></section><section class="demo-comparison-card general"><div class="demo-comparison-title"><span class="demo-comparison-kicker">강의 미반영</span><strong>일반 LLM 풀이</strong><small>강의가 반영되지 않은 일반 AI 모델의 답변</small></div><div class="demo-comparison-content"><div class="demo-general-answer" id="${generalId}"></div></div></section></div><p class="demo-comparison-note">실제 비교 실험 결과입니다.</p><div class="demo-takeaway" id="${host.id}-takeaway" hidden aria-live="polite"><div class="demo-takeaway-card"><small>강의 프로필 기반</small><strong class="demo-takeaway-solit"></strong></div><div class="demo-takeaway-card general"><small>일반 LLM</small><strong class="demo-takeaway-general"></strong></div></div>`;
       showStep(activeTarget,0);
       const generalAnswer=document.getElementById(generalId);
       generalAnswer.innerHTML=renderEvaluationMarkdown(generalLlmAnswers[problemId]);
@@ -749,9 +750,10 @@
     function resetDemoImageZoom(){demoImageZoom=1;updateDemoImageViewerSize()}
     function closeDemoImageViewer(){document.getElementById('demo-image-viewer').hidden=true;document.body.style.overflow='';const image=document.getElementById('demo-image-viewer-image');image.onload=null;image.removeAttribute('src')}
     function scrollDemoResponseToStart(answerHost){
-      const thread=document.getElementById('demo-chat-messages');if(!thread||!answerHost)return;
-      const top=answerHost.getBoundingClientRect().top-thread.getBoundingClientRect().top+thread.scrollTop;
-      thread.scrollTo({top:Math.max(0,top-12),behavior:'smooth'});
+      answerHost?.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function scrollDemoResponseToEnd(answerHost){
+      answerHost?.querySelector('.demo-takeaway')?.scrollIntoView({behavior:'smooth',block:'end'});
     }
     function typeStepAnswer(body,host){
       clearTimeout(activeTypewriterTimer);
@@ -775,7 +777,7 @@
       activeCurrentMessage=`STEP ${stepIndex+1} · ${step.title}\n${body}\n\\(${step.equation}\\)`;
       const history=activeHistory.map(item=>`<div class="bubble ${item.role}">${escapeHTML(item.text)}</div>`).join('');
       clearMath(host);
-      host.innerHTML=`<div class="chat-head"><div><strong>${activeProblem==='002'?'접선과 곡선의 교점':'극댓값과 넓이'}</strong><p>풀이 ${stepIndex+1} / ${list.length} · ${escapeHTML(step.title)}</p></div><span class="pill">${expanded?'보충 설명':'진행 중'}</span></div><div class="chat-body" id="chat-messages">${history}<div class="bubble assistant"><div class="step-label">STEP ${stepIndex+1} · ${escapeHTML(step.title)}</div><div class="step-answer-text" id="step-answer-text"></div><span class="math" id="step-equation" hidden>\\(${escapeHTML(step.equation)}\\)</span></div></div><div class="chat-actions"><button class="button primary" disabled onclick="advanceStep()">${stepIndex===list.length-1?'여기까지 이해됨':'여기까지 이해됨 → 다음 단계'}</button><button class="button" disabled onclick="expandStep()">이 부분 이해 안 됨</button></div>`;
+      host.innerHTML=`<div class="chat-head"><div><strong>${activeProblem==='002'?'2013학년도 6월 나형 17번':'2008학년도 10월 가형 7번'}</strong><p>풀이 ${stepIndex+1} / ${list.length} · ${escapeHTML(step.title)}</p></div><span class="pill">${expanded?'보충 설명':'진행 중'}</span></div><div class="chat-body" id="chat-messages">${history}<div class="bubble assistant"><div class="step-label">STEP ${stepIndex+1} · ${escapeHTML(step.title)}</div><div class="step-answer-text" id="step-answer-text"></div><span class="math" id="step-equation" hidden>\\(${escapeHTML(step.equation)}\\)</span></div></div><div class="chat-actions"><button class="button primary" disabled onclick="advanceStep()">여기까지 이해했어요</button><button class="button" disabled onclick="expandStep()">이 부분 잘 모르겠어요</button></div>`;
       typesetMath(host);
       typeStepAnswer(body,host);
       const chatBody=document.getElementById('chat-messages');chatBody.scrollTop=chatBody.scrollHeight;
@@ -788,14 +790,14 @@
     }
     function advanceStep(){
       activeHistory.push({role:'assistant',text:activeCurrentMessage});
-      activeHistory.push({role:'user',text:'여기까지 이해됨'});
+      activeHistory.push({role:'user',text:'여기까지 이해했어요'});
       if(activeStep<steps[activeProblem].length-1){
         activeStep++;showStep(activeTarget,activeStep);
       }else{
         const chat=document.getElementById(activeTarget);
         clearMath(chat);
         const history=activeHistory.map(item=>`<div class="bubble ${item.role}">${escapeHTML(item.text)}</div>`).join('');
-        chat.innerHTML=`<div class="chat-head"><div><strong>풀이 완료</strong><p>강의 개념을 문제에 적용했습니다.</p></div><span class="pill"><i class="dot"></i>완료</span></div><div class="chat-body">${history}<div class="bubble assistant"><div class="step-label">FINAL ANSWER</div>정답은 <strong>${activeProblem==='002'?'④ 3√5':'① 1'}</strong>입니다.</div></div><div class="chat-actions"><button class="button primary" onclick="resetChat()">다른 문제 질문하기</button></div>`;
+        chat.innerHTML=`<div class="chat-head"><div><strong>풀이 완료</strong><p>강의 개념을 문제에 적용했습니다.</p></div><span class="pill"><i class="dot"></i>완료</span></div><div class="chat-body">${history}<div class="bubble assistant"><div class="step-label">FINAL ANSWER</div>정답은 <strong>${activeProblem==='002'?'④ 3√5':'① 1'}</strong>입니다.</div></div>`;
         typesetMath(chat);
         const responseHost=chat.closest('.demo-answer-host');
         const takeaway=responseHost?.querySelector('.demo-takeaway');
@@ -806,19 +808,14 @@
           takeaway.querySelector('.demo-takeaway-solit').textContent=messages[0];
           takeaway.querySelector('.demo-takeaway-general').textContent=messages[1];
           takeaway.hidden=false;
-          scrollDemoResponseToStart(responseHost);
+          scrollDemoResponseToEnd(responseHost);
         }
       }
     }
     function expandStep(){
       activeHistory.push({role:'assistant',text:activeCurrentMessage});
-      activeHistory.push({role:'user',text:'이 부분 이해 안 됨'});
+      activeHistory.push({role:'user',text:'이 부분 잘 모르겠어요'});
       showStep(activeTarget,activeStep,true);
-    }
-    function resetChat(){
-      const host=document.getElementById(activeTarget);clearMath(host);host.innerHTML='<div class="chat-placeholder">문제를 선택하면 첫 풀이 단계가 여기 표시됩니다.</div>';
-      host.closest('.demo-answer-host')?.querySelector('.demo-takeaway')?.setAttribute('hidden','');
-      document.querySelectorAll('.problem-choice').forEach(button=>button.classList.remove('selected'));activeProblem=null;activeHistory=[];activeCurrentMessage='';
     }
     document.getElementById('teacher-login-form').addEventListener('submit',submitAuth);
     document.getElementById('student-login-form').addEventListener('submit',submitAuth);

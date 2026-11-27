@@ -83,13 +83,12 @@
     .demo-folder-count{border-radius:999px;background:white;padding:4px 9px;color:var(--muted);font-size:11px;white-space:nowrap}
     .demo-folder-content{padding:0 14px}
     .demo-folder-empty{padding:13px 0;color:var(--muted);font-size:12px}
-    .demo-course-entry{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;margin:8px 0;padding:12px;border:1px solid #dce6dd;border-radius:12px;background:#fbfcf9;color:var(--ink);text-align:left;cursor:pointer;animation:demo-course-pulse 1.8s ease-in-out infinite}
-    @keyframes demo-course-pulse{0%,100%{border-color:#dce6dd;box-shadow:0 0 0 0 rgba(39,95,76,0)}50%{border-color:#54866d;box-shadow:0 0 0 5px rgba(39,95,76,.12)}}
-    .demo-course-entry[aria-pressed="true"]{animation:none;border-color:#54866d;background:#f1f6f1}
+    .demo-course-entry{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px;width:100%;margin:8px 0;padding:12px;border:2px solid #54866d;border-radius:12px;background:#f5f8f4;color:var(--ink);text-align:left;cursor:pointer}
+    .demo-course-entry[aria-pressed="true"]{border-color:var(--green);background:#eaf2eb;box-shadow:0 0 0 2px rgba(39,95,76,.1)}
     .demo-course-entry:hover,.demo-course-entry[aria-pressed="true"]{color:var(--green)}
     .demo-course-entry strong{display:block;font-size:13px}.demo-course-entry small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
     .demo-course-entry .demo-lecture-icon{width:40px;height:40px;font-size:17px}
-    .demo-course-entry .pill{font-weight:750;color:var(--green);white-space:nowrap}
+    .demo-course-entry .pill{border:1px solid #c9d9cc;background:white;font-weight:750;color:var(--green);white-space:nowrap}
     .demo-lecture-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--mint);color:var(--green);font-size:20px;font-weight:850}
     .demo-library-row strong{display:block}.demo-library-row small{display:block;margin-top:3px;color:var(--muted);font-size:12px}
     .demo-screen-actions{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
@@ -231,7 +230,7 @@
     @media(max-width:800px){.workspace-grid,.demo-grid{grid-template-columns:1fr}.demo-roster-panel{grid-column:auto}.demo-roster-preview{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.dashboard-grid{grid-template-columns:1fr}}
     @media(max-width:800px){.demo-comparison,.demo-takeaway{grid-template-columns:1fr}}
     @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{height:70px}.brand{font-size:25px}.brand small{font-size:12px}.nav-actions{gap:5px}.nav-button{padding:8px 10px;font-size:11px}.nav-actions .nav-button:first-child{display:none}h1{letter-spacing:-2.6px}.panel{padding:19px}.chat-head{padding:17px}.chat-body{padding:17px}.chat-actions{padding:12px}.problem-choice{grid-template-columns:46px 1fr auto;padding:9px}.problem-thumb{width:46px;height:56px}.course-head{align-items:flex-start;flex-direction:column}.mode-switch{max-width:100%}.mode-switch button{padding:8px 11px}.dashboard-top{align-items:flex-start;flex-direction:column}.dashboard-top h1{font-size:34px}.demo-progress{gap:5px;font-size:11px}.demo-progress-step{padding:8px 10px;font-size:11px}.demo-screen-actions{flex-direction:column-reverse}.demo-library-row{grid-template-columns:45px minmax(0,1fr)}.demo-library-row>.pill{grid-column:2;justify-self:start}.demo-lecture-icon{width:42px;height:42px}.demo-attachment{width:78px;height:82px}.demo-folder-head{padding:12px}.demo-folder-content{padding:0 11px}.demo-course-entry{grid-template-columns:39px minmax(0,1fr) auto}.demo-example-list{grid-template-columns:1fr}.demo-example{grid-template-columns:42px minmax(0,1fr) auto}.demo-example img{width:40px;height:48px}.footer{flex-direction:column}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}.demo-course-entry{animation:none!important}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
